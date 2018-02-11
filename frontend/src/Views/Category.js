@@ -13,7 +13,7 @@ import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
 import FaThumbsODown from 'react-icons/lib/fa/thumbs-o-down'
 import { Link } from 'react-router-dom'
 
-const Homepage = () => {
+const Category = () => {
     let s1 = {verticalAlign: 'middle'};
     let s2 = {textAlign: 'right'};
 
@@ -69,4 +69,4 @@ const Homepage = () => {
     )
 }
 
-export default Homepage
+export default Category
