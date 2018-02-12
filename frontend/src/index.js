@@ -18,8 +18,8 @@ const store = createStore(
 )
 
 store.subscribe( () => {
-    console.log( "Store Subscribe: ")
-    console.log( store.getState() )
+    //console.log( "Store Subscribe: getState: ")
+    //console.log( store.getState() )
 })
 
 

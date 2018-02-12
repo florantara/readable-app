@@ -1,24 +1,26 @@
 import { combineReducers } from 'redux'
 
-import { GET_POSTS } from '../actions'
+import { GET_POSTS, GET_CATEGORIES } from '../actions'
 
 
 const initialState = {
     loading: true,
     error: null,
-    posts: []
+    posts: [],
+    categories: []
 
 }
 
 
 function postsReducer (state = initialState, action) {
-  switch (action.type) {
-    case GET_POSTS:
-        console.log( "Reducer: GET_POSTS", action.posts)
-      return { ...state, loading: false, posts: action.posts }
-    default:
-      return state
-  }
+    switch (action.type) {
+        case GET_POSTS:
+            return { ...state, loading: false, posts: action.posts }
+        case GET_CATEGORIES:
+            return { ...state, categories: action.categories.categories }
+        default:
+            return state
+    }
 }
 
 export default combineReducers({

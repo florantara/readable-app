@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import { Route, Switch } from 'react-router-dom'
@@ -11,12 +10,6 @@ import PageNotFound from './views/PageNotFound'
 
 class App extends Component {
 
-    componentDidMount(){
-        fetch("http://localhost:3001/categories", { headers: { 'Authorization': 'coolToken' }})
-        .then( res => res.json())
-        .then( res => console.log(res))
-
-    }
     render() {
         return (
 
@@ -24,7 +17,7 @@ class App extends Component {
 
                 <Route exact path="/" component={Homepage} />
 
-                <Route exact path="/category" component={Category} />
+                <Route exact path="/category/:category" component={Category} />
 
                 <Route exact path="/post" component={Post} />
 
