@@ -11,7 +11,7 @@ const PostsList = ({ posts }) => {
             { posts.map( post => {
                 return (
                         <div key={post.id}>
-                            <h4><Link to="/post">{post.title}? </Link><div className="list-info"> <div className="list-info-item"><FaCommentO/> <span className="mui--text-caption">{post.commentCount}</span> </div> <div className="list-info-item"><FaHeartO/> <span className="mui--text-caption">{post.voteScore}</span> </div> <div className="list-info-item"><FaThumbsOUp className="vote-up"/></div><div className="list-info-item"> <FaThumbsODown className="vote-down"/></div> </div></h4>
+                            <h4><Link to={`/post/${post.id}`}>{post.title}? </Link><div className="list-info"> <div className="list-info-item"><FaCommentO/> <span className="mui--text-caption">{post.commentCount}</span> </div> <div className="list-info-item"><FaHeartO/> <span className="mui--text-caption">{post.voteScore}</span> </div> <div className="list-info-item"><FaThumbsOUp className="vote-up"/></div><div className="list-info-item"> <FaThumbsODown className="vote-down"/></div> </div></h4>
                         </div>
                     )
                 } )

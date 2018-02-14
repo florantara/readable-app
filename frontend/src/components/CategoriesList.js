@@ -20,6 +20,7 @@ class Categories extends Component {
                         <Link key={category.path} to={`/category/${category.path}`}><Button color="accent" size="small">{category.name}</Button></Link>
                     )
                 } ) }
+                <div className="s-h-50"></div>
             </div>
         )
     }

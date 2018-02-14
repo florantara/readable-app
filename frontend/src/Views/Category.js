@@ -40,7 +40,6 @@ class Homepage extends Component {
 
                     <CategoriesList />
 
-                    <div className="s-h-50"></div>
                     <Panel>
                         <Row>
                             <Col md={6}>

@@ -24,6 +24,11 @@ body {
     vertical-align: top;
     padding-right: 7px;
 }
+.list-info-item span{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3px;
+}
 .list-info-item::after{
     content: "|";
     font-size: 12px;
@@ -49,4 +54,13 @@ body {
 .vote-down{
     cursor: pointer;
     color: red;
+}
+.PostDetail article{
+    padding-bottom: 30px;
+}
+.PostDetail aside{
+    
+}
+.PostDetail .list-info{
+    padding-left: 0;
 }

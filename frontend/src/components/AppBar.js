@@ -8,18 +8,22 @@ let s2 = {textAlign: 'right'};
 
 const AppBar = () => {
     return(
-        <Appbar>
-            <Container>
-                <table width="100%">
-                    <tbody>
-                        <tr style={s1}>
-                            <td className="mui--appbar-height">Readable App</td>
-                            <td className="mui--appbar-height" style={s2}><Button variant="raised">Create Post</Button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </Container>
-        </Appbar>
+        <div>
+            <Appbar>
+                <Container>
+                    <table width="100%">
+                        <tbody>
+                            <tr style={s1}>
+                                <td className="mui--appbar-height">Readable App</td>
+                                <td className="mui--appbar-height" style={s2}><Button variant="raised">Create Post</Button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </Container>
+            </Appbar>
+            <div className="s-h-50"></div>
+        </div>
+
     )
 }
 

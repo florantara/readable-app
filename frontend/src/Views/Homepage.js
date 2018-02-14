@@ -37,8 +37,7 @@ class Homepage extends Component {
                     <div className="s-h-50"></div>
 
                     <CategoriesList />
-
-                    <div className="s-h-50"></div>
+                    
                     <Panel>
                         <Row>
                             <Col md={6}>
