@@ -3,7 +3,11 @@ import { combineReducers } from 'redux'
 import {
     GET_POSTS,
     GET_CATEGORIES ,
-    GET_POST_BY_ID
+    GET_POST_BY_ID,
+    UPVOTE_POST_IN_LIST,
+    UPVOTE_SINGLE_POST,
+    DOWNVOTE_SINGLE_POST,
+    DOWNVOTE_POST_IN_LIST,
 } from '../actions'
 
 
@@ -27,6 +31,54 @@ function postsReducer (state = initialState, action) {
 
         case GET_POST_BY_ID:
             return { ...state, post: action.post }
+
+        case UPVOTE_POST_IN_LIST:
+            return {
+                ...state,
+                posts: state.posts.map( (post, index) => post.id === action.post.id ?
+                    {
+                        ...post,
+                        voteScore: post.voteScore + 1
+                    }
+                    :
+                    post
+                )
+            }
+
+        case UPVOTE_SINGLE_POST:
+            return {
+                ...state,
+                post: {
+                    ...state.post,
+                    voteScore: state.post.voteScore + 1
+
+                }
+
+            }
+
+            case DOWNVOTE_POST_IN_LIST:
+                return {
+                    ...state,
+                    posts: state.posts.map( (post, index) => post.id === action.post.id ?
+                        {
+                            ...post,
+                            voteScore: post.voteScore - 1
+                        }
+                        :
+                        post
+                    )
+                }
+
+            case DOWNVOTE_SINGLE_POST:
+                return {
+                    ...state,
+                    post: {
+                        ...state.post,
+                        voteScore: state.post.voteScore - 1
+
+                    }
+
+                }
 
         default:
             return state

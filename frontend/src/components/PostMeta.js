@@ -1,10 +1,9 @@
 import React from 'react'
 import FaCommentO from 'react-icons/lib/fa/comment-o'
 import FaHeartO from 'react-icons/lib/fa/heart-o'
-import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
-import FaThumbsODown from 'react-icons/lib/fa/thumbs-o-down'
+import Vote from './Vote'
 
-const PostMeta = ({ commentCount, voteScore }) => {
+const PostMeta = ({ commentCount, voteScore, postId, context }) => {
     return(
         <div className="list-info">
             <div className="list-info-item">
@@ -15,12 +14,11 @@ const PostMeta = ({ commentCount, voteScore }) => {
                 <FaHeartO/>
                 <span className="mui--text-caption">{voteScore}</span>
             </div>
-            <div className="list-info-item">
-                <FaThumbsOUp className="vote-up"/>
-            </div>
-            <div className="list-info-item">
-                <FaThumbsODown className="vote-down"/>
-            </div>
+
+            <Vote
+                postId={postId}
+                context={context}
+            />
         </div>
     )
 }

@@ -3,8 +3,6 @@ import AppBar from '../components/AppBar'
 import PostMeta from '../components/PostMeta'
 import Container from 'muicss/lib/react/container'
 import Panel from 'muicss/lib/react/panel';
-import Col from 'muicss/lib/react/col';
-import Row from 'muicss/lib/react/row';
 
 import { connect } from 'react-redux'
 import { getPost } from '../actions'
@@ -40,7 +38,10 @@ class PostDetail extends Component {
                         <aside>
                             <PostMeta
                                 voteScore={this.props.post.voteScore}
-                                commentCount={this.props.post.commentCount} />
+                                commentCount={this.props.post.commentCount}
+                                postId={this.props.post.id}
+                                context="PostDetail"
+                             />
                         </aside>
 
                     </Panel>
