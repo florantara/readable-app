@@ -3,7 +3,7 @@ import FaCommentO from 'react-icons/lib/fa/comment-o'
 import FaHeartO from 'react-icons/lib/fa/heart-o'
 import Vote from './Vote'
 
-const PostMeta = ({ commentCount, voteScore, postId, context }) => {
+const PostMeta = ({ commentCount, voteScore, id, context }) => {
     return(
         <div className="list-info">
             <div className="list-info-item">
@@ -16,7 +16,7 @@ const PostMeta = ({ commentCount, voteScore, postId, context }) => {
             </div>
 
             <Vote
-                postId={postId}
+                id={id}
                 context={context}
             />
         </div>

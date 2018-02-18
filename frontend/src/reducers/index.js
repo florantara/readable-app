@@ -16,6 +16,7 @@ const initialState = {
     error: null,
     posts: [],
     post: null,
+    comments: null,
     categories: []
 
 }
@@ -30,7 +31,12 @@ function postsReducer (state = initialState, action) {
             return { ...state, categories: action.categories.categories }
 
         case GET_POST_BY_ID:
-            return { ...state, post: action.post }
+            console.log("Comments--------: ", action.comments)
+            return {
+                ...state,
+                post: action.post,
+                comments: action.comments
+            }
 
         case UPVOTE_POST_IN_LIST:
             return {

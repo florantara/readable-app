@@ -25,12 +25,20 @@ body {
 .list-info-item{
     display: inline-block;
     vertical-align: top;
-    padding-right: 7px;
+    padding-right: 10px;
 }
 .list-info-item span{
     display: inline-block;
     vertical-align: middle;
-    margin-left: 3px;
+    margin-left: 5px;
+}
+.list-info-item svg{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.list-info-item svg:first-child{
+    margin-left: 0;
 }
 .list-info-item::after{
     content: "|";
@@ -66,4 +74,27 @@ body {
 }
 .PostDetail .list-info{
     padding-left: 0;
+}
+.CommentsList{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.CommentsList h4{
+    padding: 0.5em 1em;
+    color: white;
+}
+.CommentsList p{
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.CommentsList  div {
+    padding: 1em 0;
+    border-bottom: 1px dotted #d4d4d4;
+}
+.CommentsList div:last-of-type{
+    border-bottom: none;
+}
+.CommentsList small{
+    font-style: italic;
+    color: #555;
 }

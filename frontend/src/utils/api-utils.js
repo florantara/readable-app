@@ -26,6 +26,13 @@ export const fetchPostByID = (id) =>
 
 
 
+//  Get Post Comments
+export const fetchPostComments = (id) =>
+    fetch(`${apiURL}/posts/${id}/comments`, { headers })
+    .then(data => data.json())
+
+
+
 // POST /posts/:id
 
 export const voteThisPost = (id, option) => {

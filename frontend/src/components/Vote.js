@@ -6,16 +6,14 @@ import {  voteUp, voteDown } from '../actions/'
 
 const Vote = (props) => {
 
-    const { postId, context } = props
+    const { id, context } = props
 
     const upVote = () => {
-        console.log("Up Voting")
-        props.voteUp( postId , context)
+        props.voteUp( id , context)
     }
 
     const downVote = () => {
-        console.log("Down Voting")
-        props.voteDown( postId, context )
+        props.voteDown( id, context )
     }
 
     return(

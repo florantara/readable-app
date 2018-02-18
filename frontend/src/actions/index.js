@@ -36,16 +36,22 @@ APIUtils.fetchCategories().then(categories =>
 
 // Post by ID
 
-export const grabPost = post => ({
+export const grabPost = (post, comments) => ({
     type: GET_POST_BY_ID,
-    post
+    post,
+    comments
 })
 
-export const getPost = (id) => dispatch => {
-    return APIUtils.fetchPostByID(id).then(post =>
-          dispatch(grabPost(post))
-    )
-}
+export const getPost = (id) => dispatch => (
+    APIUtils.fetchPostByID(id)
+        .then( post => {
+            APIUtils.fetchPostComments( post.id )
+            .then( comments => {
+                dispatch( grabPost( post, comments) )
+            } )
+        } )
+
+)
 
 
 // Vote UP

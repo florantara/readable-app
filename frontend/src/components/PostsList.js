@@ -13,7 +13,7 @@ const PostsList = ({ posts }) => {
                                 <PostMeta
                                     voteScore={post.voteScore}
                                     commentCount={post.commentCount}
-                                    postId={post.id}
+                                    id={post.id}
                                     context="PostsList"
                                  />
                             </h4>
