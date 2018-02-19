@@ -6,12 +6,17 @@ import Panel from 'muicss/lib/react/panel';
 import Button from 'muicss/lib/react/button'
 
 import { connect } from 'react-redux'
-import { getPost } from '../actions'
+import { getPost, deleteComment } from '../actions'
 
 class PostDetail extends Component {
 
     componentWillMount(){
         this.props.fetchPost(this.props.match.params.postID)
+    }
+
+    onDeleteComment(commentId){
+        this.props.deleteComment(commentId)
+
     }
     render(){
 
@@ -54,6 +59,7 @@ class PostDetail extends Component {
                                     this.props.comments.map( comment => {
                                         return (
                                             <div key={comment.id}>
+                                                <div onClick={this.onDeleteComment.bind(this, comment.id)} className="CommentsList-Delete" title="Delete this comment">&times;</div>
                                                 <small>{comment.author} says:</small>
                                                 <p>{comment.body}</p>
                                                 <PostMeta
@@ -90,7 +96,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     dispatch,
-    fetchPost: (id) => dispatch( getPost(id) )
+    fetchPost: (id) => dispatch( getPost(id) ),
+    deleteComment: (id) => dispatch( deleteComment(id) )
+
 })
 
 

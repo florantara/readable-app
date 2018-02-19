@@ -65,3 +65,14 @@ export const voteThisComment = (id, option) => {
     })
     .then(data => data.json())
 }
+
+
+// DELETE /comments/:id
+
+export const deleteThisComment = (id) => {
+    return fetch(`${apiURL}/comments/${id}`, {
+        method: 'DELETE',
+        headers
+    })
+    .then(data => data.json())
+}

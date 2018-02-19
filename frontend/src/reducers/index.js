@@ -9,7 +9,8 @@ import {
     DOWNVOTE_SINGLE_POST,
     DOWNVOTE_POST_IN_LIST,
     UPVOTE_SINGLE_COMMENT,
-    DOWNVOTE_SINGLE_COMMENT
+    DOWNVOTE_SINGLE_COMMENT,
+    DELETE_COMMENT
 } from '../actions'
 
 
@@ -111,6 +112,12 @@ function postsReducer (state = initialState, action) {
                     :
                     comment
                 )
+            }
+
+        case DELETE_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.filter( (comment, index) => comment.id !== action.comment.id )
             }
 
         default:

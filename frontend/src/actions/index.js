@@ -8,6 +8,7 @@ export const DOWNVOTE_SINGLE_POST = 'DOWNVOTE_SINGLE_POST'
 export const DOWNVOTE_POST_IN_LIST = 'DOWNVOTE_POST_IN_LIST'
 export const UPVOTE_SINGLE_COMMENT = 'UPVOTE_SINGLE_COMMENT'
 export const DOWNVOTE_SINGLE_COMMENT = 'DOWNVOTE_SINGLE_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 
 
@@ -129,3 +130,14 @@ export const voteDown = (id, option, context) => dispatch => {
     }
 
 }
+
+export const deleteCommentFromPost = comment => ({
+    type: DELETE_COMMENT,
+    comment
+})
+
+export const deleteComment = id => dispatch => (
+    APIUtils.deleteThisComment(id).then( comment =>
+        dispatch(deleteCommentFromPost(comment))
+    )
+)
