@@ -2,34 +2,34 @@ const apiURL = 'http://localhost:3001'
 
 
 const headers = {
-  'Accept': 'application/json',
-  'Authorization': 'coolToken'
+    'Accept': 'application/json',
+    'Authorization': 'coolToken'
 }
 
 
 //  Get All Posts
 export const fetchPosts = () =>
-    fetch(`${apiURL}/posts`, { headers })
-    .then(data => data.json())
+fetch(`${apiURL}/posts`, { headers })
+.then(data => data.json())
 
 
 //  Get All Categories
 export const fetchCategories = () =>
-    fetch(`${apiURL}/categories`, { headers })
-    .then(data => data.json())
+fetch(`${apiURL}/categories`, { headers })
+.then(data => data.json())
 
 
 //  Get Post By ID
 export const fetchPostByID = (id) =>
-    fetch(`${apiURL}/posts/${id}`, { headers })
-    .then(data => data.json())
+fetch(`${apiURL}/posts/${id}`, { headers })
+.then(data => data.json())
 
 
 
 //  Get Post Comments
 export const fetchPostComments = (id) =>
-    fetch(`${apiURL}/posts/${id}/comments`, { headers })
-    .then(data => data.json())
+fetch(`${apiURL}/posts/${id}/comments`, { headers })
+.then(data => data.json())
 
 
 
@@ -73,6 +73,20 @@ export const deleteThisComment = (id) => {
     return fetch(`${apiURL}/comments/${id}`, {
         method: 'DELETE',
         headers
+    })
+    .then(data => data.json())
+}
+
+// POST /comments
+
+export const addComment = (newComment) => {
+    return fetch(`${apiURL}/comments`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newComment)
     })
     .then(data => data.json())
 }
