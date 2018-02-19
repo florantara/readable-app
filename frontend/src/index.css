@@ -87,11 +87,11 @@ body {
     margin-bottom: 0;
     margin-top: 0;
 }
-.CommentsList  div {
+.CommentsList  > div {
     padding: 1em 0;
     border-bottom: 1px dotted #d4d4d4;
 }
-.CommentsList div:last-of-type{
+.CommentsList > div:last-of-type{
     border-bottom: none;
 }
 .CommentsList small{

@@ -6,6 +6,8 @@ export const UPVOTE_POST_IN_LIST = 'UPVOTE_POST_IN_LIST'
 export const UPVOTE_SINGLE_POST = 'UPVOTE_SINGLE_POST'
 export const DOWNVOTE_SINGLE_POST = 'DOWNVOTE_SINGLE_POST'
 export const DOWNVOTE_POST_IN_LIST = 'DOWNVOTE_POST_IN_LIST'
+export const UPVOTE_SINGLE_COMMENT = 'UPVOTE_SINGLE_COMMENT'
+export const DOWNVOTE_SINGLE_COMMENT = 'DOWNVOTE_SINGLE_COMMENT'
 
 
 
@@ -66,6 +68,11 @@ export const findAndExecuteVoteUp = post => ({
     post
 })
 
+export const findAndExecuteVoteUpComment = comment => ({
+    type: UPVOTE_SINGLE_COMMENT,
+    comment
+})
+
 
 export const voteUp = (id, option, context) => dispatch => {
     if ( context === "PostDetail" ) {
@@ -76,6 +83,11 @@ export const voteUp = (id, option, context) => dispatch => {
     if ( context === "PostsList" ) {
         return APIUtils.voteThisPost(id, option).then(post =>
             dispatch(findAndExecuteVoteUp(post))
+        )
+    }
+    if ( context === "Comment" ) {
+        return APIUtils.voteThisComment(id, option).then(comment =>
+            dispatch(findAndExecuteVoteUpComment(comment))
         )
     }
 }
@@ -93,6 +105,12 @@ export const findAndExecuteVoteDown = post => ({
     post
 })
 
+export const findAndExecuteVoteDownComment = comment => ({
+    type: DOWNVOTE_SINGLE_COMMENT,
+    comment
+})
+
+
 export const voteDown = (id, option, context) => dispatch => {
     if ( context === "PostDetail"){
         return APIUtils.voteThisPost(id, option).then(post =>
@@ -104,4 +122,10 @@ export const voteDown = (id, option, context) => dispatch => {
               dispatch(findAndExecuteVoteDown(post))
         )
     }
+    if ( context === "Comment"){
+        return APIUtils.voteThisComment(id, option).then(comment =>
+              dispatch(findAndExecuteVoteDownComment(comment))
+        )
+    }
+
 }

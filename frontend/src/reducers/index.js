@@ -8,6 +8,8 @@ import {
     UPVOTE_SINGLE_POST,
     DOWNVOTE_SINGLE_POST,
     DOWNVOTE_POST_IN_LIST,
+    UPVOTE_SINGLE_COMMENT,
+    DOWNVOTE_SINGLE_COMMENT
 } from '../actions'
 
 
@@ -31,7 +33,6 @@ function postsReducer (state = initialState, action) {
             return { ...state, categories: action.categories.categories }
 
         case GET_POST_BY_ID:
-            console.log("Comments--------: ", action.comments)
             return {
                 ...state,
                 post: action.post,
@@ -62,29 +63,55 @@ function postsReducer (state = initialState, action) {
 
             }
 
-            case DOWNVOTE_POST_IN_LIST:
-                return {
-                    ...state,
-                    posts: state.posts.map( (post, index) => post.id === action.post.id ?
-                        {
-                            ...post,
-                            voteScore: post.voteScore - 1
-                        }
-                        :
-                        post
-                    )
-                }
-
-            case DOWNVOTE_SINGLE_POST:
-                return {
-                    ...state,
-                    post: {
-                        ...state.post,
-                        voteScore: state.post.voteScore - 1
-
+        case DOWNVOTE_POST_IN_LIST:
+            return {
+                ...state,
+                posts: state.posts.map( (post, index) => post.id === action.post.id ?
+                    {
+                        ...post,
+                        voteScore: post.voteScore - 1
                     }
+                    :
+                    post
+                )
+            }
+
+        case DOWNVOTE_SINGLE_POST:
+            return {
+                ...state,
+                post: {
+                    ...state.post,
+                    voteScore: state.post.voteScore - 1
 
                 }
+
+            }
+
+        case UPVOTE_SINGLE_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.map( (comment, index) => comment.id === action.comment.id ?
+                    {
+                        ...comment,
+                        voteScore: comment.voteScore + 1
+                    }
+                    :
+                    comment
+                )
+            }
+
+        case DOWNVOTE_SINGLE_COMMENT:
+            return {
+                ...state,
+                comments: state.comments.map( (comment, index) => comment.id === action.comment.id ?
+                    {
+                        ...comment,
+                        voteScore: comment.voteScore - 1
+                    }
+                    :
+                    comment
+                )
+            }
 
         default:
             return state

@@ -48,3 +48,20 @@ export const voteThisPost = (id, option) => {
     })
     .then(data => data.json())
 }
+
+
+// POST /comments/:id
+
+export const voteThisComment = (id, option) => {
+    return fetch(`${apiURL}/comments/${id}`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            option: option
+        })
+    })
+    .then(data => data.json())
+}
