@@ -9,6 +9,8 @@ export const DOWNVOTE_POST_IN_LIST = 'DOWNVOTE_POST_IN_LIST'
 export const UPVOTE_SINGLE_COMMENT = 'UPVOTE_SINGLE_COMMENT'
 export const DOWNVOTE_SINGLE_COMMENT = 'DOWNVOTE_SINGLE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const GET_COMMENTS = 'GET_COMMENTS'
+export const ADD_COMMENT = 'ADD_COMMENT'
 
 
 
@@ -54,6 +56,20 @@ export const getPost = (id) => dispatch => (
             } )
         } )
 
+)
+
+// Comments
+
+export const updateComments = ( comments ) => ({
+    type: GET_COMMENTS,
+    comments
+})
+
+export const getComments = (postId) => dispatch => (
+    APIUtils.fetchPostComments( postId )
+    .then( comments => {
+        dispatch( updateComments( comments) )
+    } )
 )
 
 
@@ -139,5 +155,16 @@ export const deleteCommentFromPost = comment => ({
 export const deleteComment = id => dispatch => (
     APIUtils.deleteThisComment(id).then( comment =>
         dispatch(deleteCommentFromPost(comment))
+    )
+)
+
+export const addCommentToPost = ( newComment ) => ({
+    type: ADD_COMMENT,
+    newComment
+})
+
+export const addComment = newComment => dispatch => (
+    APIUtils.addThisComment(newComment).then( comment =>
+        dispatch(addCommentToPost( comment ))
     )
 )

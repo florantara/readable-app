@@ -79,7 +79,7 @@ export const deleteThisComment = (id) => {
 
 // POST /comments
 
-export const addComment = (newComment) => {
+export const addThisComment = (newComment) => {
     return fetch(`${apiURL}/comments`, {
         method: 'POST',
         headers: {

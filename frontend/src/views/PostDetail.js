@@ -14,7 +14,6 @@ class PostDetail extends Component {
         this.props.fetchPost(this.props.match.params.postID)
     }
 
-
     render(){
 
         let time
@@ -38,7 +37,7 @@ class PostDetail extends Component {
                             <aside>
                                 <PostMeta
                                     voteScore={this.props.post.voteScore}
-                                    commentCount={this.props.post.commentCount}
+                                    commentCount={this.props.comments.length}
                                     id={this.props.post.id}
                                     context="PostDetail"
                                  />
@@ -50,7 +49,9 @@ class PostDetail extends Component {
 
                         </Panel>
 
-                        <CommentsList />
+                        <CommentsList
+                            postId={this.props.post.id}
+                        />
 
                     </Container>
 
@@ -63,7 +64,8 @@ class PostDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-    post: state.data.post
+    post: state.data.post,
+    comments: state.data.comments
 })
 
 const mapDispatchToProps = dispatch => ({

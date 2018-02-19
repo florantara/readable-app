@@ -10,7 +10,8 @@ import {
     DOWNVOTE_POST_IN_LIST,
     UPVOTE_SINGLE_COMMENT,
     DOWNVOTE_SINGLE_COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT,
+    GET_COMMENTS
 } from '../actions'
 
 
@@ -37,6 +38,12 @@ function postsReducer (state = initialState, action) {
             return {
                 ...state,
                 post: action.post,
+                comments: action.comments
+            }
+
+        case GET_COMMENTS:
+            return {
+                ...state,
                 comments: action.comments
             }
 
@@ -117,6 +124,10 @@ function postsReducer (state = initialState, action) {
         case DELETE_COMMENT:
             return {
                 ...state,
+                post: {
+                    ...state.post,
+                    commentCount: state.post.commentCount - 1
+                },
                 comments: state.comments.filter( (comment, index) => comment.id !== action.comment.id )
             }
 
