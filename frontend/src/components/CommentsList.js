@@ -39,7 +39,8 @@ class CommentsList extends Component{
 
         this.setState({
             newCommentText: '',
-            authorName: ''
+            authorName: '',
+            showNewCommentForm: false
         })
 
 
@@ -57,6 +58,12 @@ class CommentsList extends Component{
         })
     }
 
+    handleShowCommentForm(){
+        this.setState({
+            showNewCommentForm: this.state.showNewCommentForm ? false : true
+        })
+    }
+
     componentDidMount(){
         this.props.getComments(this.props.postId)
     }
@@ -65,17 +72,22 @@ class CommentsList extends Component{
         return(
             <Panel className="CommentsList">
 
-                <AddCommentForm
-                    onAuthorChange={this.onAuthorChange.bind(this)}
-                    authorName={this.state.authorName}
-                    onTextareaChange={this.onTextareaChange.bind(this)}
-                    textComment={this.state.newCommentText}
-                    onCommentSubmit={this.onCommentSubmit.bind(this)}
-                />
+                {this.state.showNewCommentForm &&
+
+                    <AddCommentForm
+                        onAuthorChange={this.onAuthorChange.bind(this)}
+                        authorName={this.state.authorName}
+                        onTextareaChange={this.onTextareaChange.bind(this)}
+                        textComment={this.state.newCommentText}
+                        onCommentSubmit={this.onCommentSubmit.bind(this)}
+                        onCancel={this.handleShowCommentForm.bind(this)}
+                    />
+
+                }
 
                 { this.props.comments.length > 0 ?
                     [
-                        <h4 key='title' className="mui--bg-accent-dark">Comments:</h4>,
+                        <h4 key='title'>Comments:</h4>,
                         this.props.comments.map( comment => {
                             return (
                                 <CommentItem
@@ -94,7 +106,15 @@ class CommentsList extends Component{
 
                 }
 
-                <Button className="CommentList-Button" variant="raised" color="accent" size="small">Add Comment</Button>
+                <Button
+                    className="CommentList-Button"
+                    variant="raised"
+                    color="accent"
+                    size="small"
+                    onClick={this.handleShowCommentForm.bind(this)}
+                >
+                    Add Comment
+                </Button>
 
             </Panel>
         )

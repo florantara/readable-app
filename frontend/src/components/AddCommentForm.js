@@ -4,8 +4,9 @@ import Input from 'muicss/lib/react/input'
 import Textarea from 'muicss/lib/react/textarea'
 import Button from 'muicss/lib/react/button'
 
-const AddCommentForm = ({ onCommentSubmit, onAuthorChange, onTextareaChange, textComment, authorName}) => {
+const AddCommentForm = (props) => {
 
+    const { onCommentSubmit, onAuthorChange, onTextareaChange, textComment, authorName, onCancel} = props;
     return(
         <div className="AddCommentForm">
 
@@ -30,9 +31,11 @@ const AddCommentForm = ({ onCommentSubmit, onAuthorChange, onTextareaChange, tex
                      className="AddCommentForm-Button"
                      value="Add Comment"
                      type="submit"
+                     color="primary"
                      >
                      Submit
                  </Button>
+                 <Button onClick={onCancel}>Cancel</Button>
             </Form>
         </div>
     )
