@@ -25,6 +25,19 @@ fetch(`${apiURL}/posts/${id}`, { headers })
 .then(data => data.json())
 
 
+//  Add Post
+export const addPost = (newPost) =>
+fetch(`${apiURL}/posts`, {
+    method: 'POST',
+    headers: {
+        ...headers,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newPost)
+})
+.then(data => data.json())
+
+
 
 //  Get Post Comments
 export const fetchPostComments = (id) =>

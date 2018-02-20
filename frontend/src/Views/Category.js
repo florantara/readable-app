@@ -29,7 +29,7 @@ class Homepage extends Component {
 
             <div>
 
-                <AppBar />
+                <AppBar showCreateButton/>
 
                 <Container>
                     <div className="mui--text-caption">

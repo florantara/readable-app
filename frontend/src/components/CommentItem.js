@@ -4,7 +4,6 @@ import PostMeta from '../components/PostMeta'
 const CommentItem = ({author, body, voteScore, id, onDeleteComment}) => {
 
     const triggerDeleteComment = (commentId) => {
-        console.log("Trigger delete")
         onDeleteComment(commentId)
 
     }

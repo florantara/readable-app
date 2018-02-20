@@ -27,7 +27,7 @@ class Homepage extends Component {
 
             <div>
 
-                <AppBar />
+                <AppBar showCreateButton/>
 
                 <Container>
                     <div className="mui--text-caption">
@@ -37,7 +37,7 @@ class Homepage extends Component {
                     <div className="s-h-50"></div>
 
                     <CategoriesList />
-                    
+
                     <Panel>
                         <Row>
                             <Col md={6}>

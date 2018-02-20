@@ -23,7 +23,7 @@ class PostDetail extends Component {
 
         return(
             <div className="PostDetail">
-                <AppBar />
+                <AppBar showCreateButton/>
 
 
                     { this.props.post ?

@@ -102,7 +102,7 @@ class CommentsList extends Component{
                         } )
                     ]
                     :
-                    <h4 className="mui--bg-accent-dark"> No comments. Be the first to add one!</h4>
+                    <h4> No comments. Be the first to add one!</h4>
 
                 }
 

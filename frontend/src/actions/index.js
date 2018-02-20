@@ -11,8 +11,7 @@ export const DOWNVOTE_SINGLE_COMMENT = 'DOWNVOTE_SINGLE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
-
-
+export const ADD_POST = 'ADD_POST'
 
 export const grabPosts = posts => ({
   type: GET_POSTS,
@@ -56,6 +55,17 @@ export const getPost = (id) => dispatch => (
             } )
         } )
 
+)
+
+export const addPost = (post) => ({
+    type: ADD_POST,
+    post
+})
+
+export const addNewPost = (newPost) => (dispatch) => (
+    APIUtils.addPost(newPost).then( post =>
+        dispatch(addPost(post))
+    )
 )
 
 // Comments
