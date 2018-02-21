@@ -9,7 +9,7 @@ const PostsList = ({ posts }) => {
                 return (
                         <div key={post.id}>
                             <h4>
-                                <Link to={`/post/${post.id}`}>{post.title}? </Link>
+                                <Link to={`/post/${post.id}`}>{post.title} </Link>
                                 <PostMeta
                                     voteScore={post.voteScore}
                                     commentCount={post.commentCount}

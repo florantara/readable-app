@@ -6,11 +6,12 @@ import Vote from './Vote'
 const PostMeta = ({ commentCount, voteScore, id, context }) => {
     return(
         <div className="list-info">
-            {commentCount &&
-                <div className="list-info-item">
+            {commentCount ?
+                (<div className="list-info-item">
                     <FaCommentO/>
                     <span className="mui--text-caption">{commentCount}</span>
-                </div>
+                </div>)
+                : null
             }
 
             <div className="list-info-item">

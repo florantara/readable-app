@@ -4,16 +4,75 @@ import PostMeta from '../components/PostMeta'
 import Container from 'muicss/lib/react/container'
 import CommentsList from '../components/CommentsList';
 import Panel from 'muicss/lib/react/panel'
+import placeCursorAtEnd from '../utils/tools'
+import Button from 'muicss/lib/react/button'
 
 import { connect } from 'react-redux'
-import { getPost } from '../actions'
+import { getPost, postUpdate } from '../actions'
 
 class PostDetail extends Component {
+
+    state={
+        editingTitle: 'false',
+        editingBody: 'false'
+    }
 
     componentWillMount(){
         this.props.fetchPost(this.props.match.params.postID)
     }
 
+
+    // Title Edit
+    handleTitleEdit = () => {
+        this.setState({
+            editingTitle: this.state.editingTitle === 'true' ? 'false' : 'true'
+        }, () => {
+                if ( this.state.editingTitle === 'true' ){
+                    this.refs.titleInput.focus()
+                    placeCursorAtEnd(this.refs.titleInput)
+                } else {
+                    this.onUpdatePost()
+                }
+            }
+        )
+
+    }
+
+    // Article Body Edit
+    handleBodyEdit = () => {
+        this.setState({
+            editingBody: this.state.editingBody === 'true' ? 'false' : 'true'
+        }, () => {
+                if ( this.state.editingBody === 'true' ){
+                    this.refs.bodyInput.focus()
+                    placeCursorAtEnd(this.refs.bodyInput)
+                } else {
+                    this.onUpdatePost()
+                }
+            }
+        )
+
+    }
+
+    // Update Post on Enter KeyPress
+    handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            this.setState({
+                editingTitle: 'false',
+                editingBody: 'false'
+            })
+            this.onUpdatePost()
+        }
+    }
+
+    // Update Post
+    onUpdatePost(){
+        const postData = {
+            title: this.refs.titleInput.innerHTML,
+            body: this.refs.bodyInput.innerHTML
+        }
+        this.props.updatePost(this.props.match.params.postID, postData)
+    }
     render(){
 
         let time
@@ -31,7 +90,20 @@ class PostDetail extends Component {
                     <Container>
 
                         <Panel>
-                            <h2 className="mui--text-headline">{this.props.post.title}</h2>
+                            <h2 className="mui--text-headline"
+                                ref="titleInput"
+                                suppressContentEditableWarning
+                                contentEditable={this.state.editingTitle}
+                                onKeyPress={this.handleKeyPress}
+                                >
+
+                                {this.props.post.title}
+
+                            </h2>
+                            <Button size="small" onClick={this.handleTitleEdit} variant="flat" color="primary">
+                                { this.state.editingTitle === 'true' ? "Save" : "Edit title" }
+                            </Button>
+
                             <p className="mui--text-caption">by <em>{this.props.post.author}</em> on <em>{time.toDateString()}</em></p>
 
                             <aside>
@@ -43,9 +115,18 @@ class PostDetail extends Component {
                                  />
                             </aside>
                             <hr />
-                            <article>
+                            <article
+                                ref="bodyInput"
+                                suppressContentEditableWarning
+                                contentEditable={this.state.editingBody}
+                                onKeyPress={this.handleKeyPress}
+                                >
                                 {this.props.post.body}
+
                             </article>
+                            <Button size="small" onClick={this.handleBodyEdit} variant="flat" color="primary">
+                                { this.state.editingBody === 'true' ? "Save" : "Edit Text" }
+                            </Button>
 
                         </Panel>
 
@@ -71,7 +152,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     dispatch,
     fetchPost: (id) => dispatch( getPost(id) ),
-
+    updatePost: (id, postData) => dispatch( postUpdate(id, postData) ),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

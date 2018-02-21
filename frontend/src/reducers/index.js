@@ -11,7 +11,8 @@ import {
     UPVOTE_SINGLE_COMMENT,
     DOWNVOTE_SINGLE_COMMENT,
     DELETE_COMMENT,
-    GET_COMMENTS
+    GET_COMMENTS,
+    UPDATE_POST
 } from '../actions'
 
 
@@ -40,6 +41,10 @@ function postsReducer (state = initialState, action) {
                 post: action.post,
                 comments: action.comments
             }
+
+        case UPDATE_POST:
+            console.log( action.postUpdated )
+            return state
 
         case GET_COMMENTS:
             return {

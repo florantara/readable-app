@@ -66,6 +66,16 @@ body {
     cursor: pointer;
     color: red;
 }
+.PostDetail h2{
+    display: inline-block;
+    margin-right: 10px;
+    width: 80%;
+}
+.PostDetail h2 + button{
+    width: calc( 20% - 10px) ;
+    text-align: center;
+}
+
 .PostDetail article{
     padding-bottom: 30px;
 }

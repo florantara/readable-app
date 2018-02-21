@@ -63,6 +63,21 @@ export const voteThisPost = (id, option) => {
 }
 
 
+// PUT /posts/:id
+
+export const updateThisPost = (id, updates) => {
+    return fetch(`${apiURL}/posts/${id}`, {
+        method: 'PUT',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updates)
+    })
+    .then(data => data.json())
+}
+
+
 // POST /comments/:id
 
 export const voteThisComment = (id, option) => {
