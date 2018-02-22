@@ -12,7 +12,7 @@ import {
     DOWNVOTE_SINGLE_COMMENT,
     DELETE_COMMENT,
     GET_COMMENTS,
-    UPDATE_POST
+    DELETE_POST
 } from '../actions'
 
 
@@ -42,9 +42,18 @@ function postsReducer (state = initialState, action) {
                 comments: action.comments
             }
 
-        case UPDATE_POST:
-            console.log( action.postUpdated )
-            return state
+        case DELETE_POST:
+             return {
+                 ...state,
+                 posts: state.posts.map( (post, index) => post.id === action.post.id ?
+                    {
+                        ...post,
+                        deleted: true
+                    }
+                    :
+                    post
+                )
+             }
 
         case GET_COMMENTS:
             return {

@@ -79,8 +79,16 @@ body {
 .PostDetail article{
     padding-bottom: 30px;
 }
-.PostDetail aside{
-
+.PostDetail-tools{
+    display: flex;
+    justify-content: space-between;
+}
+.PostDetail-tools > svg{
+    cursor: pointer;
+    fill: #808080;
+}
+.PostDetail-tools > svg:hover{
+    fill: black;
 }
 .PostDetail .list-info{
     padding-left: 0;

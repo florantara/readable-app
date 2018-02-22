@@ -13,6 +13,7 @@ export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const ADD_POST = 'ADD_POST'
 export const UPDATE_POST = 'UPDATE_POST'
+export const DELETE_POST = 'DELETE_POST'
 
 export const grabPosts = posts => ({
   type: GET_POSTS,
@@ -58,6 +59,17 @@ export const getPost = (id) => dispatch => (
 
 )
 
+export const deletePost = (post) => ({
+    type: DELETE_POST,
+    post
+})
+
+export const postDelete = (id) => (dispatch) => (
+    APIUtils.deleteThisPost(id).then( post =>
+        dispatch(deletePost(post))
+    )
+)
+
 // Add Post
 
 export const addPost = (post) => ({
@@ -71,15 +83,8 @@ export const addNewPost = (newPost) => (dispatch) => (
     )
 )
 
-export const updatePost = (postUpdated) => ({
-    type: UPDATE_POST,
-    postUpdated
-})
-
 export const postUpdate = (id, updates) => (dispatch) => (
-    APIUtils.updateThisPost(id, updates).then( post =>
-        dispatch( updatePost(post) )
-    )
+    APIUtils.updateThisPost(id, updates)
 )
 
 // Comments

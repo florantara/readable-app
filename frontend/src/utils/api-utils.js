@@ -78,6 +78,21 @@ export const updateThisPost = (id, updates) => {
 }
 
 
+// DELETE /posts/:id
+// Sets the 'deleted' flag to true
+
+export const deleteThisPost = (id) => {
+    return fetch(`${apiURL}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(data => data.json())
+}
+
+
 // POST /comments/:id
 
 export const voteThisComment = (id, option) => {

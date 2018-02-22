@@ -7,8 +7,9 @@ import Panel from 'muicss/lib/react/panel'
 import placeCursorAtEnd from '../utils/tools'
 import Button from 'muicss/lib/react/button'
 import  Parser  from 'html-react-parser'
+import FaTrash from 'react-icons/lib/fa/trash'
 import { connect } from 'react-redux'
-import { getPost, postUpdate } from '../actions'
+import { getPost, postUpdate, postDelete } from '../actions'
 
 class PostDetail extends Component {
 
@@ -72,13 +73,19 @@ class PostDetail extends Component {
         }
         this.props.updatePost(this.props.match.params.postID, postData)
     }
+
+    // Delete Post
+    onDeletePost = () =>{
+        this.props.deletePost(this.props.match.params.postID)
+        window.location.href="/"
+    }
     render(){
 
         let time, article
 
         if ( this.props.post ) {
             time = new Date(this.props.post.timestamp)
-            article = Parser(this.props.post.body)
+            article = Parser(this.props.post.body || "")
         }
 
 
@@ -87,60 +94,66 @@ class PostDetail extends Component {
                 <AppBar showCreateButton/>
 
 
-                    { this.props.post ?
+                { this.props.post ?
 
-                    <Container>
+                <Container>
 
-                        <Panel>
-                            <h2 className="mui--text-headline"
-                                ref="titleInput"
-                                suppressContentEditableWarning
-                                contentEditable={this.state.editingTitle}
-                                onKeyPress={this.handleKeyPress}
-                                >
+                    <Panel>
+                        <div className="PostDetail-tools">
 
-                                {this.props.post.title}
 
-                            </h2>
-                            <Button size="small" onClick={this.handleTitleEdit} variant="flat" color="primary">
-                                { this.state.editingTitle === 'true' ? "Save" : "Edit title" }
-                            </Button>
+                            <PostMeta
+                                voteScore={this.props.post.voteScore}
+                                commentCount={this.props.comments.length}
+                                id={this.props.post.id}
+                                context="PostDetail"
+                             />
 
-                            <p className="mui--text-caption">by <em>{this.props.post.author}</em> on <em>{time.toDateString()}</em></p>
+                             <FaTrash onClick={this.onDeletePost}/>
 
-                            <aside>
-                                <PostMeta
-                                    voteScore={this.props.post.voteScore}
-                                    commentCount={this.props.comments.length}
-                                    id={this.props.post.id}
-                                    context="PostDetail"
-                                 />
-                            </aside>
-                            <hr />
-                            <article
-                                ref="bodyInput"
-                                suppressContentEditableWarning
-                                contentEditable={this.state.editingBody}
-                                onKeyPress={this.handleKeyPress}
-                                >
-                                {article}
+                        </div>
+                        <h2 className="mui--text-headline"
+                            ref="titleInput"
+                            suppressContentEditableWarning
+                            contentEditable={this.state.editingTitle}
+                            onKeyPress={this.handleKeyPress}
+                            >
 
-                            </article>
-                            <Button size="small" onClick={this.handleBodyEdit} variant="flat" color="primary">
-                                { this.state.editingBody === 'true' ? "Save" : "Edit Text" }
-                            </Button>
+                            {this.props.post.title}
 
-                        </Panel>
+                        </h2>
+                        <Button size="small" onClick={this.handleTitleEdit} variant="flat" color="primary">
+                            { this.state.editingTitle === 'true' ? "Save" : "Edit title" }
+                        </Button>
 
-                        <CommentsList
-                            postId={this.props.post.id}
-                        />
+                        <p className="mui--text-caption">by <em>{this.props.post.author}</em> on <em>{time.toDateString()}</em></p>
 
-                    </Container>
+                        <hr />
+                        <article
+                            ref="bodyInput"
+                            suppressContentEditableWarning
+                            contentEditable={this.state.editingBody}
+                            onKeyPress={this.handleKeyPress}
+                            >
+                            {article}
 
-                    :
-                    "Loading Post"
-                    }
+                        </article>
+                        <Button size="small" onClick={this.handleBodyEdit} variant="flat" color="primary" style={{float: 'right'}}>
+                            { this.state.editingBody === 'true' ? "Save" : "Edit Text" }
+                        </Button>
+
+                    </Panel>
+
+                    <CommentsList
+                        postId={this.props.post.id}
+                    />
+
+                </Container>
+
+                :
+                "Loading Post"
+                }
+
             </div>
         )
     }
@@ -155,6 +168,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch,
     fetchPost: (id) => dispatch( getPost(id) ),
     updatePost: (id, postData) => dispatch( postUpdate(id, postData) ),
+    deletePost: (id) => dispatch( postDelete(id) )
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)
