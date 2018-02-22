@@ -6,7 +6,7 @@ import CommentsList from '../components/CommentsList';
 import Panel from 'muicss/lib/react/panel'
 import placeCursorAtEnd from '../utils/tools'
 import Button from 'muicss/lib/react/button'
-
+import  Parser  from 'html-react-parser'
 import { connect } from 'react-redux'
 import { getPost, postUpdate } from '../actions'
 
@@ -58,8 +58,7 @@ class PostDetail extends Component {
     handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             this.setState({
-                editingTitle: 'false',
-                editingBody: 'false'
+                editingTitle: 'false'
             })
             this.onUpdatePost()
         }
@@ -75,10 +74,13 @@ class PostDetail extends Component {
     }
     render(){
 
-        let time
+        let time, article
+
         if ( this.props.post ) {
             time = new Date(this.props.post.timestamp)
+            article = Parser(this.props.post.body)
         }
+
 
         return(
             <div className="PostDetail">
@@ -121,7 +123,7 @@ class PostDetail extends Component {
                                 contentEditable={this.state.editingBody}
                                 onKeyPress={this.handleKeyPress}
                                 >
-                                {this.props.post.body}
+                                {article}
 
                             </article>
                             <Button size="small" onClick={this.handleBodyEdit} variant="flat" color="primary">
