@@ -79,6 +79,10 @@ body {
 .PostDetail article{
     padding-bottom: 30px;
 }
+.PostDetail article img{
+    max-width: 40%;
+    height: auto;
+}
 .PostDetail-tools{
     display: flex;
     justify-content: space-between;

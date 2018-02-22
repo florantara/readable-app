@@ -10,9 +10,11 @@ import {
     DOWNVOTE_POST_IN_LIST,
     UPVOTE_SINGLE_COMMENT,
     DOWNVOTE_SINGLE_COMMENT,
+    ADD_COMMENT,
     DELETE_COMMENT,
     GET_COMMENTS,
-    DELETE_POST
+    DELETE_POST,
+    POSTS_IMPORTED
 } from '../actions'
 
 
@@ -40,6 +42,26 @@ function postsReducer (state = initialState, action) {
                 ...state,
                 post: action.post,
                 comments: action.comments
+            }
+
+        case POSTS_IMPORTED:
+            let newPosts = action.posts.map( (post,index) => ({
+                id: String(post.id),
+                timestamp: Math.floor(Date.parse(post.date) / 1000),
+                title: post.title.rendered,
+                body: post.content.rendered,
+                category: "udacity",
+                voteScore: post.author, //Just to get a random number.
+                author: "John Doe",
+                deleted: false,
+                commentCount: 0
+            }))
+            return {
+                ...state,
+                posts: [
+                    ...state.posts,
+                    ...newPosts
+                ]
             }
 
         case DELETE_POST:
@@ -133,6 +155,15 @@ function postsReducer (state = initialState, action) {
                     :
                     comment
                 )
+            }
+
+        case ADD_COMMENT:
+            return {
+                ...state,
+                comments: [
+                    ...state.comments,
+                    action.newComment
+                ]
             }
 
         case DELETE_COMMENT:

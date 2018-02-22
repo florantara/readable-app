@@ -7,7 +7,7 @@ import Row from 'muicss/lib/react/row';
 import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { getPosts } from '../actions'
+import { getPosts, importSomePosts } from '../actions'
 import AppBar from '../components/AppBar'
 import SortBy from '../components/SortBy'
 import CategoriesList from '../components/CategoriesList'
@@ -15,8 +15,19 @@ import PostsList from '../components/PostsList'
 
 class Homepage extends Component {
 
+    state={
+        showImportButton: true
+    }
+
     componentWillMount () {
         this.props.fetchData()
+    }
+
+    onImportSomePosts = () => {
+        this.props.importPosts()
+        this.setState({
+            showImportButton: false
+        })
     }
 
     render() {
@@ -57,6 +68,8 @@ class Homepage extends Component {
 
                     </Panel>
 
+
+                    {this.state.showImportButton ? (<div onClick={this.onImportSomePosts}>Import Some Posts</div>) : null}
                 </Container>
             </div>
         )
@@ -70,7 +83,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     dispatch,
-    fetchData: () => dispatch(getPosts())
+    fetchData: () => dispatch(getPosts()),
+    importPosts: () => dispatch(importSomePosts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage)

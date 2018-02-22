@@ -5,10 +5,8 @@ import DropdownItem from 'muicss/lib/react/dropdown-item';
 const SortBy = () => {
     return(
         <Dropdown color="primary" label="Sort By">
-            <DropdownItem link="#/link1">Option 1</DropdownItem>
-            <DropdownItem>Option 2</DropdownItem>
-            <DropdownItem>Option 3</DropdownItem>
-            <DropdownItem>Option 4</DropdownItem>
+            <DropdownItem>Most popular first</DropdownItem>
+            <DropdownItem>Newer first</DropdownItem>
         </Dropdown>
     )
 }

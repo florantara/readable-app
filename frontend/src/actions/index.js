@@ -14,6 +14,7 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const ADD_POST = 'ADD_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const POSTS_IMPORTED = 'POSTS_IMPORTED'
 
 export const grabPosts = posts => ({
   type: GET_POSTS,
@@ -27,6 +28,36 @@ export const getPosts = () => dispatch =>
 
 
 
+// Import Some Posts
+export const importPosts = posts => ({
+    type: POSTS_IMPORTED,
+    posts
+})
+
+export const importSomePosts = () => dispatch => (
+    APIUtils.importSomePosts().then(posts =>
+        dispatch(importPosts(posts))
+    ).then( posts => addImportedPosts(posts))
+)
+
+
+export const addImportedPosts = (posts) => {
+    let newPosts = posts.posts.map( (post, index) => (
+        {
+            id: String(post.id),
+            timestamp: Math.floor(Date.parse(post.date) / 1000),
+            title: post.title.rendered,
+            body: post.content.rendered,
+            category: "udacity",
+            voteScore: post.author, //Just to get a random number.
+            author: "John Doe",
+            deleted: false,
+            commentCount: 0
+        })
+    )
+    newPosts.map( newPost => APIUtils.addPost(newPost))
+}
+
 // Categories
 
 export const grabCategories = categories => ({
@@ -35,9 +66,9 @@ export const grabCategories = categories => ({
 })
 
 export const getCategories= () => dispatch =>
-APIUtils.fetchCategories().then(categories =>
-  dispatch(grabCategories(categories))
-)
+    APIUtils.fetchCategories().then(categories =>
+      dispatch(grabCategories(categories))
+    )
 
 
 // Post by ID
@@ -59,6 +90,8 @@ export const getPost = (id) => dispatch => (
 
 )
 
+// Delete Post
+
 export const deletePost = (post) => ({
     type: DELETE_POST,
     post
@@ -72,16 +105,11 @@ export const postDelete = (id) => (dispatch) => (
 
 // Add Post
 
-export const addPost = (post) => ({
-    type: ADD_POST,
-    post
-})
-
 export const addNewPost = (newPost) => (dispatch) => (
-    APIUtils.addPost(newPost).then( post =>
-        dispatch(addPost(post))
-    )
+    APIUtils.addPost(newPost)
 )
+
+// Edit Post
 
 export const postUpdate = (id, updates) => (dispatch) => (
     APIUtils.updateThisPost(id, updates)
