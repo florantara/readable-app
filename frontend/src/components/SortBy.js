@@ -2,11 +2,15 @@ import React from 'react'
 import Dropdown from 'muicss/lib/react/dropdown';
 import DropdownItem from 'muicss/lib/react/dropdown-item';
 
-const SortBy = () => {
+const SortBy = ({onSortBySelection}) => {
+
+    const handleSortOption = (option) => {
+        onSortBySelection(option)
+    }
     return(
         <Dropdown color="primary" label="Sort By">
-            <DropdownItem>Most popular first</DropdownItem>
-            <DropdownItem>Newer first</DropdownItem>
+            <DropdownItem onClick={() => handleSortOption("popular")}>Most popular first</DropdownItem>
+            <DropdownItem onClick={() => handleSortOption("date")}>Newest first</DropdownItem>
         </Dropdown>
     )
 }

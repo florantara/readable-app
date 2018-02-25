@@ -15,6 +15,7 @@ export const ADD_POST = 'ADD_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const POSTS_IMPORTED = 'POSTS_IMPORTED'
+export const SORT_POSTS = 'SORT_POSTS'
 
 export const grabPosts = posts => ({
   type: GET_POSTS,
@@ -40,12 +41,11 @@ export const importSomePosts = () => dispatch => (
     ).then( posts => addImportedPosts(posts))
 )
 
-
 export const addImportedPosts = (posts) => {
     let newPosts = posts.posts.map( (post, index) => (
         {
             id: String(post.id),
-            timestamp: Math.floor(Date.parse(post.date) / 1000),
+            timestamp: Math.floor(Date.parse(post.date.slice(0, post.date.length - 9)) / 1000),
             title: post.title.rendered,
             body: post.content.rendered,
             category: "udacity",
@@ -57,6 +57,14 @@ export const addImportedPosts = (posts) => {
     )
     newPosts.map( newPost => APIUtils.addPost(newPost))
 }
+
+
+// Sort Posts
+
+export const sortPosts = option => ({
+    type: SORT_POSTS,
+    option
+})
 
 // Categories
 

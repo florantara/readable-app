@@ -14,7 +14,8 @@ import {
     DELETE_COMMENT,
     GET_COMMENTS,
     DELETE_POST,
-    POSTS_IMPORTED
+    POSTS_IMPORTED,
+    SORT_POSTS
 } from '../actions'
 
 
@@ -47,7 +48,7 @@ function postsReducer (state = initialState, action) {
         case POSTS_IMPORTED:
             let newPosts = action.posts.map( (post,index) => ({
                 id: String(post.id),
-                timestamp: Math.floor(Date.parse(post.date) / 1000),
+                timestamp: Math.floor(Date.parse(post.date.slice(0, post.date.length - 9)) / 1000),
                 title: post.title.rendered,
                 body: post.content.rendered,
                 category: "udacity",
@@ -76,6 +77,24 @@ function postsReducer (state = initialState, action) {
                     post
                 )
              }
+
+        case SORT_POSTS:
+            let sortedPosts
+            if ( action.option === 'date') {
+                sortedPosts = state.posts.sort( (a, b) => {
+                    return new Date(b.timestamp) - new Date(a.timestamp)
+                })
+            } else {
+                sortedPosts = state.posts.sort( (a, b) => {
+                    return b.voteScore - a.voteScore
+                })
+            }
+            return {
+                ...state,
+                posts: [
+                    ...sortedPosts
+                ]
+            }
 
         case GET_COMMENTS:
             return {

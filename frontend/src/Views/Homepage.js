@@ -7,7 +7,7 @@ import Row from 'muicss/lib/react/row';
 import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { getPosts, importSomePosts } from '../actions'
+import { getPosts, importSomePosts, sortPosts } from '../actions'
 import AppBar from '../components/AppBar'
 import SortBy from '../components/SortBy'
 import CategoriesList from '../components/CategoriesList'
@@ -30,9 +30,16 @@ class Homepage extends Component {
         })
     }
 
+    onSortBy = (option) => {
+        console.log("option is: ", option)
+        this.props.sortPosts(option)
+    }
+
     render() {
 
         let s1 = {textAlign: 'right'};
+
+        console.log("this.props.posts", this.props.posts)
 
         return(
 
@@ -55,7 +62,7 @@ class Homepage extends Component {
                                 <p className="mui--text-headline">Posts</p>
                             </Col>
                             <Col md={6} style={s1}>
-                                <SortBy />
+                                <SortBy onSortBySelection={this.onSortBy}/>
                             </Col>
                         </Row>
 
@@ -84,7 +91,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     dispatch,
     fetchData: () => dispatch(getPosts()),
-    importPosts: () => dispatch(importSomePosts())
+    importPosts: () => dispatch(importSomePosts()),
+    sortPosts: (option) => dispatch(sortPosts(option))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
