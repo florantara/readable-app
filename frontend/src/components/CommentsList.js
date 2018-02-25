@@ -29,7 +29,7 @@ class CommentsList extends Component{
 
         const comment = {
             id: uuidv1(),
-            timestamp: Math.floor(Date.now() / 1000),
+            timestamp: new Date().getTime(),
             body: this.state.newCommentText,
             author: this.state.authorName,
             parentId: this.props.postId

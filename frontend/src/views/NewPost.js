@@ -39,7 +39,7 @@ class NewPost extends Component {
 
         const newPost = {
             id: uuidv1(),
-            timestamp: Math.floor(Date.now() / 1000),
+            timestamp: new Date().getTime(),
             title: this.state.titleInput,
             body: this.state.bodyInput,
             author: this.state.authorInput,
