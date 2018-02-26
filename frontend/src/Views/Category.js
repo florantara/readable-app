@@ -4,7 +4,7 @@ import Panel from 'muicss/lib/react/panel';
 
 import Col from 'muicss/lib/react/col';
 import Row from 'muicss/lib/react/row';
-import { Link } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 import { connect } from 'react-redux'
 import { getPosts } from '../actions'
@@ -13,7 +13,7 @@ import SortBy from '../components/SortBy'
 import CategoriesList from '../components/CategoriesList'
 import PostsList from '../components/PostsList'
 
-class Homepage extends Component {
+class Category extends Component {
 
     componentWillMount () {
         this.props.fetchData()
@@ -25,6 +25,8 @@ class Homepage extends Component {
 
         let postsInCategory = this.props.posts.filter( post => post.category === this.props.match.params.category )
 
+        let activeCategory = this.props.match.params.category
+
         return(
 
             <div>
@@ -32,18 +34,13 @@ class Homepage extends Component {
                 <AppBar showCreateButton/>
 
                 <Container>
-                    <div className="mui--text-caption">
-                        <br/>
-                        <p><Link to="/">App</Link> > Category: {this.props.match.params.category}</p>
-                    </div>
-                    <div className="s-h-50"></div>
 
-                    <CategoriesList />
+                    <CategoriesList activeCategory={activeCategory}/>
 
                     <Panel>
                         <Row>
                             <Col md={6}>
-                                <p className="mui--text-headline">Posts in {this.props.match.params.category}</p>
+                                <p className="mui--text-headline">Posts in: <em>{this.props.match.params.category}</em></p>
                             </Col>
                             <Col md={6} style={s1}>
                                 <SortBy />
@@ -53,7 +50,7 @@ class Homepage extends Component {
 
                         <PostsList posts={postsInCategory} />
 
-                        { this.props.loading && "Loading Posts..." }
+                        { this.props.loadingPosts && <Loading/> }
 
                     </Panel>
 
@@ -65,7 +62,7 @@ class Homepage extends Component {
 
 const mapStateToProps = state => ({
     posts: state.data.posts,
-    loading: state.data.loading
+    loadingPosts: state.data.loadingPosts
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -73,4 +70,4 @@ const mapDispatchToProps = dispatch => ({
     fetchData: () => dispatch(getPosts())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
+export default connect(mapStateToProps, mapDispatchToProps)(Category)

@@ -7,14 +7,14 @@ const PostMeta = ({ commentCount, voteScore, id, context }) => {
     return(
         <div className="list-info">
             {commentCount ?
-                (<div className="list-info-item">
+                (<div className="list-info--comments list-info-item">
                     <FaCommentO/>
                     <span className="mui--text-caption">{commentCount}</span>
                 </div>)
                 : null
             }
 
-            <div className="list-info-item">
+            <div className="list-info--votes list-info-item">
                 <FaHeartO/>
                 <span className="mui--text-caption">{voteScore}</span>
             </div>

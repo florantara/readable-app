@@ -45,12 +45,12 @@ export const addImportedPosts = (posts) => {
     let newPosts = posts.posts.map( (post, index) => (
         {
             id: String(post.id),
-            timestamp: Math.floor(Date.parse(post.date.slice(0, post.date.length - 9)) / 1000),
+            timestamp: post.date,
             title: post.title.rendered,
             body: post.content.rendered,
             category: "udacity",
-            voteScore: post.author, //Just to get a random number.
-            author: "John Doe",
+            voteScore: Math.floor(Math.random()*200) + 1,
+            author: post._embedded.author[0].name,
             deleted: false,
             commentCount: 0
         })

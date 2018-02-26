@@ -20,7 +20,8 @@ import {
 
 
 const initialState = {
-    loading: true,
+    loadingPosts: true,
+    importDone: false,
     error: null,
     posts: [],
     post: null,
@@ -33,7 +34,7 @@ const initialState = {
 function postsReducer (state = initialState, action) {
     switch (action.type) {
         case GET_POSTS:
-            return { ...state, loading: false, posts: action.posts }
+            return { ...state, loadingPosts: false, posts: action.posts }
 
         case GET_CATEGORIES:
             return { ...state, categories: action.categories.categories }
@@ -48,17 +49,18 @@ function postsReducer (state = initialState, action) {
         case POSTS_IMPORTED:
             let newPosts = action.posts.map( (post,index) => ({
                 id: String(post.id),
-                timestamp: Math.floor(Date.parse(post.date.slice(0, post.date.length - 9)) / 1000),
+                timestamp: post.date,
                 title: post.title.rendered,
                 body: post.content.rendered,
                 category: "udacity",
-                voteScore: post.author, //Just to get a random number.
-                author: "John Doe",
+                voteScore: Math.floor(Math.random()*200) + 1,
+                author: post._embedded.author[0].name,
                 deleted: false,
                 commentCount: 0
             }))
             return {
                 ...state,
+                importDone: true,
                 posts: [
                     ...state.posts,
                     ...newPosts

@@ -1,5 +1,6 @@
 import React from 'react'
 import PostMeta from '../components/PostMeta'
+import FaTrash from 'react-icons/lib/fa/trash'
 
 const CommentItem = ({author, body, voteScore, id, onDeleteComment}) => {
 
@@ -13,7 +14,7 @@ const CommentItem = ({author, body, voteScore, id, onDeleteComment}) => {
             <div
                 onClick={() => triggerDeleteComment(id)}
                 className="CommentsList-Delete"
-                title="Delete this comment">&times;</div>
+                title="Delete this comment"><FaTrash/></div>
 
             <small>{author} says:</small>
             <p>{body}</p>

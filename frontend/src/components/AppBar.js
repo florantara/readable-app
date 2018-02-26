@@ -3,11 +3,17 @@ import Appbar from 'muicss/lib/react/appbar'
 import Container from 'muicss/lib/react/container'
 import Button from 'muicss/lib/react/button'
 import { Link } from 'react-router-dom'
+import logo from '../img/readable-logo.svg'
 
 let s1 = {verticalAlign: 'middle'};
-let s2 = {textAlign: 'right'};
+let s2 = {textAlign: 'right', width: '200px'};
+let s3 = {width: "300px", textAlign: "right"}
 
-const AppBar = ({showCreateButton}) => {
+const AppBar = ({showCreateButton, showImportButton, onImportSomePosts}) => {
+
+    const triggerImportSomePosts = () => {
+        onImportSomePosts()
+    }
     return(
         <div className="AppBar">
             <Appbar>
@@ -15,9 +21,23 @@ const AppBar = ({showCreateButton}) => {
                     <table width="100%">
                         <tbody>
                             <tr style={s1}>
-                                <td className="mui--appbar-height"><Link to ="/"> Readable App</Link></td>
+                                <td className="mui--appbar-height">
+                                    <Link to ="/">
+                                        <img src={logo} alt="Readable Logo" width="100"/>
+                                    </Link>
+                                </td>
+                                {showImportButton &&
+                                    <td style={s3}>
+                                        <Button title="Import External Posts to make this more fun!" variant="raised" onClick={() => triggerImportSomePosts()}>
+                                        Import Some Posts</Button>
+                                    </td>
+                                }
                                 { showCreateButton &&
-                                    <td className="mui--appbar-height" style={s2}><Link to="/new-post"><Button variant="raised">Create Post</Button></Link></td>
+                                    <td className="mui--appbar-height" style={s2}>
+                                        <Link to="/new-post">
+                                            <Button variant="raised">Create Post</Button>
+                                        </Link>
+                                    </td>
                                 }
                             </tr>
                         </tbody>

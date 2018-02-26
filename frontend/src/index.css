@@ -30,7 +30,7 @@ body {
 .list-info-item span{
     display: inline-block;
     vertical-align: middle;
-    margin-left: 5px;
+    margin-left: 2px;
 }
 .list-info-item svg{
     display: inline-block;
@@ -40,13 +40,11 @@ body {
 .list-info-item svg:first-child{
     margin-left: 0;
 }
-.list-info-item::after{
-    content: "|";
-    font-size: 12px;
-    display: inline-block;
-    vertical-align: top;
-    padding-left: 7px;
-    color: #e1e1e1;
+.list-info--votes svg{
+    fill: #707070;
+}
+.list-info--votes {
+    color: #707070;
 }
 .list-info-item:last-child::after{
     display: none;
@@ -104,7 +102,7 @@ body {
 .CommentsList-Delete{
     position: absolute;
     width: 35px;
-    height: calc( 100% - 10px) ;
+    height: calc( 100% - 35px) ;
     background-color: #e1e1e1;
     color: red;
     cursor: pointer;
@@ -159,4 +157,47 @@ body {
     width: 100%;
     min-height: 250px;
     padding: 30px;
+}
+
+/* CategoriesList */
+.CategoriesList span,
+.CategoriesList a{
+    display: inline-block;
+    margin-right: 10px;
+}
+.CategoriesList span{
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+}
+.CategoriesList a{
+    vertical-align: top;
+}
+
+/* Posts List*/
+
+.PostsList-item{
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.PostsList-item h4{
+    padding-right: 20px;
+    margin-top: 0;
+
+}
+.PostsList-item:hover h4 a{
+    color: #2196F3;
+}
+.PostsList-item h4 a{
+    color: black;
+}
+
+.PostsList-item small{
+    display: block;
+    font-size: 11px;
+    color: #BFBFBF;
+    line-height: 1em;
 }

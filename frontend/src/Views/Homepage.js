@@ -1,10 +1,10 @@
 import React , { Component } from 'react'
 import Container from 'muicss/lib/react/container'
 import Panel from 'muicss/lib/react/panel';
+import Loading from '../components/Loading'
 
 import Col from 'muicss/lib/react/col';
 import Row from 'muicss/lib/react/row';
-import { Link } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import { getPosts, importSomePosts, sortPosts } from '../actions'
@@ -16,7 +16,7 @@ import PostsList from '../components/PostsList'
 class Homepage extends Component {
 
     state={
-        showImportButton: true
+        showImportButton: this.props.importDone === false ? true : false
     }
 
     componentWillMount () {
@@ -31,7 +31,6 @@ class Homepage extends Component {
     }
 
     onSortBy = (option) => {
-        console.log("option is: ", option)
         this.props.sortPosts(option)
     }
 
@@ -39,20 +38,13 @@ class Homepage extends Component {
 
         let s1 = {textAlign: 'right'};
 
-        console.log("this.props.posts", this.props.posts)
-
         return(
 
             <div>
 
-                <AppBar showCreateButton/>
+                <AppBar showCreateButton showImportButton={this.state.showImportButton === true ? true : null} onImportSomePosts={this.onImportSomePosts}/>
 
                 <Container>
-                    <div className="mui--text-caption">
-                        <br/>
-                        <p><Link to="/">App</Link> > Homepage</p>
-                    </div>
-                    <div className="s-h-50"></div>
 
                     <CategoriesList />
 
@@ -69,14 +61,12 @@ class Homepage extends Component {
 
                         <PostsList posts={this.props.posts} />
 
-                        { this.props.loading && "Loading Posts..." }
+                        { this.props.loadingPosts && <Loading/> }
 
 
 
                     </Panel>
 
-
-                    {this.state.showImportButton ? (<div onClick={this.onImportSomePosts}>Import Some Posts</div>) : null}
                 </Container>
             </div>
         )
@@ -85,7 +75,8 @@ class Homepage extends Component {
 
 const mapStateToProps = state => ({
     posts: state.data.posts,
-    loading: state.data.loading
+    loadingPosts: state.data.loadingPosts,
+    importDone: state.data.importDone
 })
 
 const mapDispatchToProps = dispatch => ({

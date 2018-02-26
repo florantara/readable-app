@@ -12,12 +12,19 @@ class Categories extends Component {
     }
 
     render(){
+
         return(
-            <div>
+            <div className="CategoriesList">
                 <span>Categories: </span>
                 { this.props.categories.map( category => {
+                    let isActive
+                    if ( category.path === this.props.activeCategory ){
+                        isActive = true
+                    }
                     return(
-                        <Link key={category.path} to={`/category/${category.path}`}><Button color="accent" size="small">{category.name}</Button></Link>
+                        <Link key={category.path} to={`/category/${category.path}`}>
+                            <Button color={isActive ? '' : 'accent'} size="small">{category.name}</Button>
+                        </Link>
                     )
                 } ) }
                 <div className="s-h-50"></div>

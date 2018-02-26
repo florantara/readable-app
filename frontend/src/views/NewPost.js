@@ -11,7 +11,6 @@ import DropdownItem from 'muicss/lib/react/dropdown-item';
 import { addNewPost } from '../actions'
 import { connect } from 'react-redux'
 import  uuidv1  from 'uuid/v1'
-import { Link } from 'react-router-dom'
 
 let s1 = {verticalAlign: 'middle'};
 let s2 = {textAlign: 'right'};
@@ -23,7 +22,6 @@ class NewPost extends Component {
         bodyInput: '',
         authorInput: '',
         category: '',
-        postSubmited: false,
         newPostId: null
     }
 
@@ -51,9 +49,12 @@ class NewPost extends Component {
             bodyInput: '',
             authorInput: '',
             category: '',
-            postSubmited: true,
             newPostId: newPost.id
-        })
+        },
+        () => {
+            this.handleSuccessRedirect()
+        }
+        )
     }
 
     onTitleChange = (e) => {
@@ -78,6 +79,10 @@ class NewPost extends Component {
         this.setState({
             category: category
         })
+    }
+
+    handleSuccessRedirect = () =>{
+        window.location.href= "/"
     }
 
     render(){
@@ -128,7 +133,7 @@ class NewPost extends Component {
                                 placeholder="Start writing..."
                                 onChange={this.onPostBodyChange}
                                 value={this.state.bodyInput}
-                                rows="15"
+                                rows="10"
                             />
 
                              <Button
@@ -139,9 +144,6 @@ class NewPost extends Component {
                                  >
                                  Submit
                              </Button>
-                             { this.state.postSubmited &&
-                                    <p>Nice! <Link to={`/post/${this.state.newPostId}`}> View your post.</Link></p>
-                             }
                         </Form>
                     </Panel>
                 </Container>

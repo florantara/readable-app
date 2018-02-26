@@ -14,7 +14,7 @@ fetch(`${apiURL}/posts`, { headers })
 
 //  Import Some Posts
 export const importSomePosts = () =>
-fetch('https://www.webdesignerdepot.com/wp-json/wp/v2/posts', { headers })
+fetch('https://www.webdesignerdepot.com/wp-json/wp/v2/posts?_embed', { headers })
 .then(data => data.json())
 
 
