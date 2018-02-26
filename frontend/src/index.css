@@ -194,7 +194,9 @@ body {
 .PostsList-item h4 a{
     color: black;
 }
-
+.PostsList-item:hover small{
+    color: #656565;
+}
 .PostsList-item small{
     display: block;
     font-size: 11px;

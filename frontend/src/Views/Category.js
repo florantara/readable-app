@@ -7,7 +7,7 @@ import Row from 'muicss/lib/react/row';
 import Loading from '../components/Loading'
 
 import { connect } from 'react-redux'
-import { getPosts } from '../actions'
+import { getPosts, sortPosts } from '../actions'
 import AppBar from '../components/AppBar'
 import SortBy from '../components/SortBy'
 import CategoriesList from '../components/CategoriesList'
@@ -17,6 +17,10 @@ class Category extends Component {
 
     componentWillMount () {
         this.props.fetchData()
+    }
+
+    onSortBy = (option) => {
+        this.props.sortPosts(option)
     }
 
     render() {
@@ -43,7 +47,7 @@ class Category extends Component {
                                 <p className="mui--text-headline">Posts in: <em>{this.props.match.params.category}</em></p>
                             </Col>
                             <Col md={6} style={s1}>
-                                <SortBy />
+                                <SortBy onSortBySelection={this.onSortBy}/>
                             </Col>
                         </Row>
 
@@ -67,7 +71,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     dispatch,
-    fetchData: () => dispatch(getPosts())
+    fetchData: () => dispatch(getPosts()),
+    sortPosts: (option) => dispatch(sortPosts(option))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category)

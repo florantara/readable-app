@@ -17,6 +17,9 @@ export const DELETE_POST = 'DELETE_POST'
 export const POSTS_IMPORTED = 'POSTS_IMPORTED'
 export const SORT_POSTS = 'SORT_POSTS'
 
+
+// Posts
+
 export const grabPosts = posts => ({
   type: GET_POSTS,
   posts
@@ -29,7 +32,12 @@ export const getPosts = () => dispatch =>
 
 
 
-// Import Some Posts
+// Import Some Posts:
+//
+// This fetches the 10 latest posts from an external
+// WordPress Blog (webdesignerdepot)
+// so there is more data in the app
+
 export const importPosts = posts => ({
     type: POSTS_IMPORTED,
     posts
@@ -41,6 +49,7 @@ export const importSomePosts = () => dispatch => (
     ).then( posts => addImportedPosts(posts))
 )
 
+// Add each fetched post
 export const addImportedPosts = (posts) => {
     let newPosts = posts.posts.map( (post, index) => (
         {
@@ -57,7 +66,6 @@ export const addImportedPosts = (posts) => {
     )
     newPosts.map( newPost => APIUtils.addPost(newPost))
 }
-
 
 // Sort Posts
 
@@ -79,7 +87,7 @@ export const getCategories= () => dispatch =>
     )
 
 
-// Post by ID
+// Individual Post
 
 export const grabPost = (post, comments) => ({
     type: GET_POST_BY_ID,
@@ -98,7 +106,7 @@ export const getPost = (id) => dispatch => (
 
 )
 
-// Delete Post
+// Delete Individual Post
 
 export const deletePost = (post) => ({
     type: DELETE_POST,
@@ -137,81 +145,6 @@ export const getComments = (postId) => dispatch => (
     } )
 )
 
-
-// Vote UP
-
-export const executeVoteUp = post => ({
-    type: UPVOTE_SINGLE_POST,
-    post
-})
-
-export const findAndExecuteVoteUp = post => ({
-    type: UPVOTE_POST_IN_LIST,
-    post
-})
-
-export const findAndExecuteVoteUpComment = comment => ({
-    type: UPVOTE_SINGLE_COMMENT,
-    comment
-})
-
-
-export const voteUp = (id, option, context) => dispatch => {
-    if ( context === "PostDetail" ) {
-        return APIUtils.voteThisPost(id, option).then(post =>
-            dispatch(executeVoteUp(post))
-        )
-    }
-    if ( context === "PostsList" ) {
-        return APIUtils.voteThisPost(id, option).then(post =>
-            dispatch(findAndExecuteVoteUp(post))
-        )
-    }
-    if ( context === "Comment" ) {
-        return APIUtils.voteThisComment(id, option).then(comment =>
-            dispatch(findAndExecuteVoteUpComment(comment))
-        )
-    }
-}
-
-
-// Vote DOWN
-
-export const executeVoteDown = post => ({
-    type: DOWNVOTE_SINGLE_POST,
-    post
-})
-
-export const findAndExecuteVoteDown = post => ({
-    type: DOWNVOTE_POST_IN_LIST,
-    post
-})
-
-export const findAndExecuteVoteDownComment = comment => ({
-    type: DOWNVOTE_SINGLE_COMMENT,
-    comment
-})
-
-
-export const voteDown = (id, option, context) => dispatch => {
-    if ( context === "PostDetail"){
-        return APIUtils.voteThisPost(id, option).then(post =>
-              dispatch(executeVoteDown(post))
-        )
-    }
-    if ( context === "PostsList"){
-        return APIUtils.voteThisPost(id, option).then(post =>
-              dispatch(findAndExecuteVoteDown(post))
-        )
-    }
-    if ( context === "Comment"){
-        return APIUtils.voteThisComment(id, option).then(comment =>
-              dispatch(findAndExecuteVoteDownComment(comment))
-        )
-    }
-
-}
-
 export const deleteCommentFromPost = comment => ({
     type: DELETE_COMMENT,
     comment
@@ -233,3 +166,87 @@ export const addComment = newComment => dispatch => (
         dispatch(addCommentToPost( comment ))
     )
 )
+
+
+// Vote UP:
+//
+// Individual Post
+// Post in List
+// Comment
+
+export const executeVoteUp = post => ({
+    type: UPVOTE_SINGLE_POST,
+    post
+})
+
+export const findAndExecuteVoteUp = post => ({
+    type: UPVOTE_POST_IN_LIST,
+    post
+})
+
+export const findAndExecuteVoteUpComment = comment => ({
+    type: UPVOTE_SINGLE_COMMENT,
+    comment
+})
+
+// The voteUp function receives a "context" depending of where it was triggered from.
+export const voteUp = (id, option, context) => dispatch => {
+    if ( context === "PostDetail" ) {
+        return APIUtils.voteThisPost(id, option).then(post =>
+            dispatch(executeVoteUp(post))
+        )
+    }
+    if ( context === "PostsList" ) {
+        return APIUtils.voteThisPost(id, option).then(post =>
+            dispatch(findAndExecuteVoteUp(post))
+        )
+    }
+    if ( context === "Comment" ) {
+        return APIUtils.voteThisComment(id, option).then(comment =>
+            dispatch(findAndExecuteVoteUpComment(comment))
+        )
+    }
+}
+
+
+// Vote DOWN
+//
+// Individual Post
+// Post in List
+// Comment
+
+export const executeVoteDown = post => ({
+    type: DOWNVOTE_SINGLE_POST,
+    post
+})
+
+export const findAndExecuteVoteDown = post => ({
+    type: DOWNVOTE_POST_IN_LIST,
+    post
+})
+
+export const findAndExecuteVoteDownComment = comment => ({
+    type: DOWNVOTE_SINGLE_COMMENT,
+    comment
+})
+
+
+// The voteDown function receives a "context" depending of where it was triggered from.
+export const voteDown = (id, option, context) => dispatch => {
+    if ( context === "PostDetail"){
+        return APIUtils.voteThisPost(id, option).then(post =>
+              dispatch(executeVoteDown(post))
+        )
+    }
+    if ( context === "PostsList"){
+        return APIUtils.voteThisPost(id, option).then(post =>
+              dispatch(findAndExecuteVoteDown(post))
+        )
+    }
+    if ( context === "Comment"){
+        return APIUtils.voteThisComment(id, option).then(comment =>
+              dispatch(findAndExecuteVoteDownComment(comment))
+        )
+    }
+
+}
