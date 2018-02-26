@@ -9,7 +9,7 @@ let s1 = {verticalAlign: 'middle'};
 let s2 = {textAlign: 'right', width: '200px'};
 let s3 = {width: "300px", textAlign: "right"}
 
-const AppBar = ({showCreateButton, showImportButton, onImportSomePosts}) => {
+const AppBar = ({showCreateButton, showImportButton, onImportSomePosts, importingPosts}) => {
 
     const triggerImportSomePosts = () => {
         onImportSomePosts()
@@ -26,6 +26,11 @@ const AppBar = ({showCreateButton, showImportButton, onImportSomePosts}) => {
                                         <img src={logo} alt="Readable Logo" width="100"/>
                                     </Link>
                                 </td>
+                                {importingPosts &&
+                                    <td style={s3}>
+                                        <p style={{color: "white"}}>Importing posts...</p>
+                                    </td>
+                                }
                                 {showImportButton &&
                                     <td style={s3}>
                                         <Button title="Import External Posts to make this more fun!" variant="raised" onClick={() => triggerImportSomePosts()}>
