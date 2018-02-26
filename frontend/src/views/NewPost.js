@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import AppBar from '../components/AppBar'
 import Container from 'muicss/lib/react/container'
 import Panel from 'muicss/lib/react/panel'
@@ -22,7 +23,8 @@ class NewPost extends Component {
         bodyInput: '',
         authorInput: '',
         category: '',
-        newPostId: null
+        newPostId: null,
+        postCreated: false
     }
 
     onPostSubmit = (e) =>{
@@ -49,12 +51,9 @@ class NewPost extends Component {
             bodyInput: '',
             authorInput: '',
             category: '',
-            newPostId: newPost.id
-        },
-        () => {
-            this.handleSuccessRedirect()
-        }
-        )
+            newPostId: newPost.id,
+            postCreated: true
+        })
     }
 
     onTitleChange = (e) => {
@@ -81,11 +80,11 @@ class NewPost extends Component {
         })
     }
 
-    handleSuccessRedirect = () =>{
-        window.location.href= "/"
-    }
-
     render(){
+
+        if (this.state.postCreated === true) {
+            return <Redirect to={`/post/${this.state.newPostId}`} />
+        }
 
         return(
             <div className="NewPost">

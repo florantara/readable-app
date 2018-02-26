@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import AppBar from '../components/AppBar'
 import PostMeta from '../components/PostMeta'
 import Container from 'muicss/lib/react/container'
@@ -15,8 +16,9 @@ import { getPost, postUpdate, postDelete } from '../actions'
 class PostDetail extends Component {
 
     state={
-        editingTitle: 'false',
-        editingBody: 'false'
+        editingTitle: 'false', // These need to be strings because they are going to be in the HTML attribute
+        editingBody: 'false',
+        postDeleted: false
     }
 
     componentWillMount(){
@@ -78,9 +80,15 @@ class PostDetail extends Component {
     // Delete Post
     onDeletePost = () =>{
         this.props.deletePost(this.props.match.params.postID)
-        window.location.href="/"
+        this.setState({
+            postDeleted: true
+        })
     }
     render(){
+
+        if (this.state.postDeleted === true) {
+            return <Redirect to="/" />
+        }
 
         let time, article
 
