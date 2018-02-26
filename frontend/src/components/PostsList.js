@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PostMeta from '../components/PostMeta'
+import PropTypes from 'prop-types'
 
 const PostsList = ({ posts }) => {
     return(
@@ -25,6 +26,10 @@ const PostsList = ({ posts }) => {
             }
         </div>
     )
+}
+
+PostsList.propTypes = {
+    posts: PropTypes.array.isRequired
 }
 
 export default PostsList

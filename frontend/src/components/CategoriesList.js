@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Button from 'muicss/lib/react/button'
 import { connect } from 'react-redux'
 import { getCategories } from '../actions'
-
+import PropTypes from 'prop-types'
 
 class Categories extends Component {
 
@@ -41,5 +41,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch,
     fetchData: () => dispatch(getCategories())
 })
+
+Categories.propTypes = {
+    categories: PropTypes.array,
+    activeCategory: PropTypes.string
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories)

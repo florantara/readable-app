@@ -4,6 +4,7 @@ import Container from 'muicss/lib/react/container'
 import Button from 'muicss/lib/react/button'
 import { Link } from 'react-router-dom'
 import logo from '../img/readable-logo.svg'
+import PropTypes from 'prop-types'
 
 let s1 = {verticalAlign: 'middle'};
 let s2 = {textAlign: 'right', width: '200px'};
@@ -53,6 +54,13 @@ const AppBar = ({showCreateButton, showImportButton, onImportSomePosts, importin
         </div>
 
     )
+}
+
+AppBar.propTypes = {
+    showCreateButton: PropTypes.bool,
+    showImportButton: PropTypes.bool,
+    onImportSomePosts: PropTypes.func,
+    importingPosts: PropTypes.bool
 }
 
 export default AppBar

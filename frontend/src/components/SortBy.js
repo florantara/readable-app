@@ -1,6 +1,7 @@
 import React from 'react'
 import Dropdown from 'muicss/lib/react/dropdown';
 import DropdownItem from 'muicss/lib/react/dropdown-item';
+import PropTypes from 'prop-types'
 
 const SortBy = ({onSortBySelection}) => {
 
@@ -13,6 +14,10 @@ const SortBy = ({onSortBySelection}) => {
             <DropdownItem onClick={() => handleSortOption("date")}>Newest first</DropdownItem>
         </Dropdown>
     )
+}
+
+SortBy.propTypes = {
+    onSortBySelection: PropTypes.func.isRequired
 }
 
 export default SortBy

@@ -1,6 +1,7 @@
 import React from 'react'
 import PostMeta from '../components/PostMeta'
 import FaTrash from 'react-icons/lib/fa/trash'
+import PropTypes from 'prop-types'
 
 const CommentItem = ({author, body, voteScore, id, onDeleteComment}) => {
 
@@ -26,6 +27,14 @@ const CommentItem = ({author, body, voteScore, id, onDeleteComment}) => {
             />
         </div>
     )
+}
+
+CommentItem.propTypes = {
+    author: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    voteScore: PropTypes.number.isRequired,
+    id:  PropTypes.string.isRequired,
+    onDeleteComment: PropTypes.func.isRequired
 }
 
 export default CommentItem

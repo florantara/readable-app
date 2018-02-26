@@ -2,6 +2,7 @@ import React from 'react'
 import FaCommentO from 'react-icons/lib/fa/comment-o'
 import FaHeartO from 'react-icons/lib/fa/heart-o'
 import Vote from './Vote'
+import PropTypes from 'prop-types'
 
 const PostMeta = ({ commentCount, voteScore, id, context }) => {
     return(
@@ -25,6 +26,13 @@ const PostMeta = ({ commentCount, voteScore, id, context }) => {
             />
         </div>
     )
+}
+
+PostMeta.propTypes = {
+    commentCount: PropTypes.number,
+    voteScore: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    context: PropTypes.string.isRequired
 }
 
 export default PostMeta

@@ -6,6 +6,7 @@ import AddCommentForm from '../components/AddCommentForm'
 import { connect } from 'react-redux'
 import { getComments, deleteComment, addComment } from '../actions'
 import  uuidv1  from 'uuid/v1'
+import PropTypes from 'prop-types'
 
 class CommentsList extends Component{
 
@@ -133,5 +134,8 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
+CommentsList.propTypes = {
+    comments: PropTypes.array.isRequired
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentsList)

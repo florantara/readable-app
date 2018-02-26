@@ -3,6 +3,7 @@ import FaThumbsOUp from 'react-icons/lib/fa/thumbs-o-up'
 import FaThumbsODown from 'react-icons/lib/fa/thumbs-o-down'
 import { connect } from 'react-redux'
 import {  voteUp, voteDown } from '../actions/'
+import PropTypes from 'prop-types'
 
 const Vote = (props) => {
 
@@ -26,13 +27,16 @@ const Vote = (props) => {
     )
 }
 
-
-
 const mapDispatchToProps = dispatch => ({
     dispatch,
     voteUp: (id, context) => dispatch(voteUp(id, "upVote", context)),
     voteDown: (id, context) => dispatch(voteDown(id, "downVote", context))
 
 })
+
+Vote.propTYpes = {
+    id: PropTypes.string.isRequired,
+    context: PropTypes.string.isRequired
+}
 
 export default connect(null, mapDispatchToProps)(Vote)
