@@ -74,9 +74,9 @@ class Homepage extends Component {
 }
 
 const mapStateToProps = state => ({
-    posts: state.data.posts,
-    loadingPosts: state.data.loadingPosts,
-    importDone: state.data.importDone
+    posts: state.posts.posts,
+    loadingPosts: state.posts.loadingPosts,
+    importDone: state.posts.importDone
 })
 
 const mapDispatchToProps = dispatch => ({

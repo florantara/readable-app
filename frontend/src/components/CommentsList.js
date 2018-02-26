@@ -122,7 +122,7 @@ class CommentsList extends Component{
 }
 
 const mapStateToProps = state => ({
-    comments: state.data.comments
+    comments: state.post.comments
 })
 
 const mapDispatchToProps = dispatch => ({

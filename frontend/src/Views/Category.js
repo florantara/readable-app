@@ -61,8 +61,8 @@ class Category extends Component {
 }
 
 const mapStateToProps = state => ({
-    posts: state.data.posts,
-    loadingPosts: state.data.loadingPosts
+    posts: state.posts.posts,
+    loadingPosts: state.posts.loadingPosts
 })
 
 const mapDispatchToProps = dispatch => ({

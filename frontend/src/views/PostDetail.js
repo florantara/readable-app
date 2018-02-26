@@ -169,8 +169,8 @@ class PostDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-    post: state.data.post,
-    comments: state.data.comments
+    post: state.post.post,
+    comments: state.post.comments
 })
 
 const mapDispatchToProps = dispatch => ({
