@@ -10,6 +10,7 @@ import Button from 'muicss/lib/react/button'
 import  Parser  from 'html-react-parser'
 import FaTrash from 'react-icons/lib/fa/trash'
 import Loading from '../components/Loading'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPost, postUpdate, postDelete } from '../actions'
 
@@ -97,7 +98,6 @@ class PostDetail extends Component {
             article = Parser(this.props.post.body || "")
         }
 
-
         return(
             <div className="PostDetail">
                 <AppBar showCreateButton/>
@@ -105,59 +105,74 @@ class PostDetail extends Component {
 
                 { this.props.post ?
 
-                <Container>
+                    this.props.post.body ?
 
-                    <Panel>
-                        <div className="PostDetail-tools">
+                    <Container>
+
+                        <Panel>
+                            <div className="PostDetail-tools">
 
 
-                            <PostMeta
-                                voteScore={this.props.post.voteScore}
-                                commentCount={this.props.comments.length}
-                                id={this.props.post.id}
-                                context="PostDetail"
-                             />
+                                <PostMeta
+                                    voteScore={this.props.post.voteScore}
+                                    commentCount={this.props.comments.length}
+                                    id={this.props.post.id}
+                                    context="PostDetail"
+                                 />
 
-                             <FaTrash onClick={this.onDeletePost}/>
+                                 <FaTrash onClick={this.onDeletePost}/>
 
-                        </div>
-                        <h2 className="mui--text-headline"
-                            ref="titleInput"
-                            suppressContentEditableWarning
-                            contentEditable={this.state.editingTitle}
-                            onKeyPress={this.handleKeyPress}
-                            >
+                            </div>
+                            <h2 className="mui--text-headline"
+                                ref="titleInput"
+                                suppressContentEditableWarning
+                                contentEditable={this.state.editingTitle}
+                                onKeyPress={this.handleKeyPress}
+                                >
 
-                            {this.props.post.title}
+                                {this.props.post.title}
 
-                        </h2>
-                        <Button size="small" onClick={this.handleTitleEdit} variant="flat" color="primary">
-                            { this.state.editingTitle === 'true' ? "Save" : "Edit title" }
-                        </Button>
+                            </h2>
+                            <Button size="small" onClick={this.handleTitleEdit} variant="flat" color="primary">
+                                { this.state.editingTitle === 'true' ? "Save" : "Edit title" }
+                            </Button>
 
-                        <p className="mui--text-caption">by <em>{this.props.post.author}</em> on <em>{time.toDateString()}</em></p>
+                            <p className="mui--text-caption">by <em>{this.props.post.author}</em> on <em>{time.toDateString()}</em></p>
 
-                        <hr />
-                        <article
-                            ref="bodyInput"
-                            suppressContentEditableWarning
-                            contentEditable={this.state.editingBody}
-                            onKeyPress={this.handleKeyPress}
-                            >
-                            {article}
+                            <hr />
+                            <article
+                                ref="bodyInput"
+                                suppressContentEditableWarning
+                                contentEditable={this.state.editingBody}
+                                onKeyPress={this.handleKeyPress}
+                                >
+                                {article}
 
-                        </article>
-                        <Button size="small" onClick={this.handleBodyEdit} variant="flat" color="primary" style={{float: 'right'}}>
-                            { this.state.editingBody === 'true' ? "Save" : "Edit Text" }
-                        </Button>
+                            </article>
+                            <Button size="small" onClick={this.handleBodyEdit} variant="flat" color="primary" style={{float: 'right'}}>
+                                { this.state.editingBody === 'true' ? "Save" : "Edit Text" }
+                            </Button>
 
-                    </Panel>
+                        </Panel>
 
-                    <CommentsList
-                        postId={this.props.post.id}
-                    />
+                        <CommentsList
+                            postId={this.props.post.id}
+                        />
 
-                </Container>
+                    </Container>
+
+                    :
+
+                    <Container>
+                        <Panel>
+                            <h1>Oops! This post doesn't exist anymore!</h1>
+                            <Link to="/">
+                                <Button size="small" variant="flat" color="primary">
+                                    Go back to Homepage
+                                </Button>
+                            </Link>
+                        </Panel>
+                    </Container>
 
                 :
                 <Loading/>

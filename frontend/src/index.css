@@ -203,3 +203,30 @@ body {
     color: #BFBFBF;
     line-height: 1em;
 }
+
+/* New Post */
+
+.NewPost-ValidationMsg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+.NewPost .mui-dropdown {
+    display: block;
+}
+.NewPost-ValidationMsg div{
+    background: white;
+    max-width: 500px;
+    min-width: 300px;
+    width: 100%;
+    min-height: 50px;
+    padding: 30px;
+    text-align: center;
+}

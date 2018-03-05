@@ -13,44 +13,62 @@ import { addNewPost } from '../actions'
 import { connect } from 'react-redux'
 import  uuidv1  from 'uuid/v1'
 
-let s1 = {verticalAlign: 'middle'};
-let s2 = {textAlign: 'right'};
-
 class NewPost extends Component {
 
     state={
-        titleInput: '',
-        bodyInput: '',
-        authorInput: '',
-        category: '',
-        newPostId: null,
-        postCreated: false
-    }
-
-    onPostSubmit = (e) =>{
-        e.preventDefault()
-
-        // id - UUID should be fine, but any unique id will work
-        // timestamp - [Timestamp] Can in whatever format you like, you can use Date.now() if you like.
-        // title - [String]
-        // body - [String]
-        // author - [String]
-        // category - Any of the categories listed in categories.js. Feel free to extend this list as you desire.
-
-        const newPost = {
-            id: uuidv1(),
-            timestamp: new Date().getTime(),
-            title: this.state.titleInput,
-            body: this.state.bodyInput,
-            author: this.state.authorInput,
-            category: this.state.category
-        }
-        this.props.addPost(newPost)
-        this.setState({
+        postData: {
             titleInput: '',
             bodyInput: '',
             authorInput: '',
             category: '',
+        },
+        newPostId: null,
+        postCreated: false,
+        showValidationPopup: false
+    }
+
+    onPostSubmit = (e) =>{
+        e.preventDefault()
+        const allValues = Object.values(this.state.postData)
+        const emptyFields = allValues.filter( field => field === '' );
+        console.log(emptyFields.length)
+        if ( emptyFields.length > 0) {
+            this.setState({
+                showValidationPopup: true
+            })
+        } else {
+            this.onCreatePost()
+        }
+
+
+    }
+
+    onOkValidationMsg = () => {
+        this.setState({
+            showValidationPopup: false
+        })
+    }
+
+    onCreatePost = () => {
+
+        const newPost = {
+            id: uuidv1(),
+            timestamp: new Date().getTime(),
+            title: this.state.postData.titleInput,
+            body: this.state.postData.bodyInput,
+            author: this.state.postData.authorInput,
+            category: this.state.postData.category
+        }
+
+        this.props.addPost(newPost)
+
+        this.setState({
+            postData: {
+                titleInput: '',
+                bodyInput: '',
+                authorInput: '',
+                category: ''
+            },
             newPostId: newPost.id,
             postCreated: true
         })
@@ -58,25 +76,37 @@ class NewPost extends Component {
 
     onTitleChange = (e) => {
         this.setState({
-            titleInput: e.target.value
+            postData: {
+                ...this.state.postData,
+                titleInput: e.target.value
+            }
         })
     }
 
     onAuthorChange = (e) => {
         this.setState({
-            authorInput: e.target.value
+            postData: {
+                ...this.state.postData,
+                authorInput: e.target.value
+            }
         })
     }
 
     onPostBodyChange = (e) => {
         this.setState({
-            bodyInput: e.target.value
+            postData: {
+                ...this.state.postData,
+                bodyInput: e.target.value
+            }
         })
     }
 
     handleCategory = (category) => {
         this.setState({
-            category: category
+            postData: {
+                ...this.state.postData,
+                category: category
+            }
         })
     }
 
@@ -93,45 +123,39 @@ class NewPost extends Component {
                     <Panel>
                         <Form onSubmit={this.onPostSubmit}>
 
-                            <table width="100%">
-                                <tbody>
-                                    <tr style={s1}>
-                                        <td><legend>New Post</legend></td>
-                                        <td style={s2}>
-                                            <Dropdown
-                                                color="accent"
-                                                size="small"
-                                                label={this.state.category ? this.state.category : "Category..."}
-                                            >
-                                                <DropdownItem onClick={() => this.handleCategory("redux")} value="redux">Redux</DropdownItem>
-                                                <DropdownItem onClick={() => this.handleCategory("react")} value="react">React</DropdownItem>
-                                                <DropdownItem onClick={() => this.handleCategory("udacity")} value="udacity">Udacity</DropdownItem>
-                                            </Dropdown>
+                            <legend>New Post</legend>
 
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                             <div className="mui--text-caption">Title</div>
                             <Input
                                 name="title"
                                 placeholder="Give it a catchy title..."
                                 onChange={this.onTitleChange}
-                                value={this.state.titleInput}
+                                value={this.state.postData.titleInput}
                             />
+
                             <div className="mui--text-caption">Author</div>
                             <Input
                                 name="author"
                                 placeholder="What's your name?"
                                 onChange={this.onAuthorChange}
-                                value={this.state.authorInput}
+                                value={this.state.postData.authorInput}
                             />
+
+                            <Dropdown
+                                color="accent"
+                                size="small"
+                                label={this.state.postData.category ? this.state.postData.category : "Pick a category..."}
+                            >
+                                <DropdownItem onClick={() => this.handleCategory("redux")} value="redux">Redux</DropdownItem>
+                                <DropdownItem onClick={() => this.handleCategory("react")} value="react">React</DropdownItem>
+                                <DropdownItem onClick={() => this.handleCategory("udacity")} value="udacity">Udacity</DropdownItem>
+                            </Dropdown>
 
                             <Textarea
                                 name="body"
                                 placeholder="Start writing..."
                                 onChange={this.onPostBodyChange}
-                                value={this.state.bodyInput}
+                                value={this.state.postData.bodyInput}
                                 rows="10"
                             />
 
@@ -143,6 +167,15 @@ class NewPost extends Component {
                                  >
                                  Submit
                              </Button>
+                             { this.state.showValidationPopup &&
+                                 <div className="NewPost-ValidationMsg">
+                                     <div>
+                                         <p>Oops, looks like you are missing something... :)</p>
+                                         <Button color="accent" onClick={this.onOkValidationMsg}>Ok, let me see</Button>
+                                     </div>
+                                 </div>
+                             }
+
                         </Form>
                     </Panel>
                 </Container>

@@ -20,7 +20,7 @@ class App extends Component {
 
                 <Route exact path="/category/:category" component={Category} />
 
-                <Route exact path="/post/:postID" component={PostDetail} />
+                <Route exact path="/:category/:postID" component={PostDetail} />
 
                 <Route exact path="/new-post" component={NewPost} />
 

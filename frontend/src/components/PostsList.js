@@ -11,8 +11,8 @@ const PostsList = ({ posts }) => {
                 return (
                         <div className="PostsList-item" key={post.id}>
                             <h4>
-                                <Link to={`/post/${post.id}`}>{post.title} </Link>
-                                <small>{date.toDateString()}</small>
+                                <Link to={`/${post.category}/${post.id}`}>{post.title} </Link>
+                                <small>by {post.author} on {date.toDateString()}</small>
                             </h4>
                             <PostMeta
                                 voteScore={post.voteScore}
