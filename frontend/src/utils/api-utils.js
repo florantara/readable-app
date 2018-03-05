@@ -138,3 +138,17 @@ export const addThisComment = (newComment) => {
     })
     .then(data => data.json())
 }
+
+// PUT /comments
+
+export const editThisComment = (commentEdits, id) => {
+    return fetch(`${apiURL}/comments/${id}`, {
+        method: 'PUT',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(commentEdits)
+    })
+    .then(data => data.json())
+}

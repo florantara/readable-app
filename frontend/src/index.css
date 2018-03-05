@@ -138,6 +138,26 @@ body {
     font-style: italic;
     color: #555;
 }
+.CommentList-Body p{
+    display: inline-block;
+}
+.CommentList-Body-edit {
+    padding: 10px 0;
+}
+
+.CommentList-Body-editing{
+    margin: 10px 0;
+}
+.CommentList-Body-edit p{
+    background: teal;
+    color: white;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
 .AddCommentForm{
     position: fixed !important;
     top: 0;

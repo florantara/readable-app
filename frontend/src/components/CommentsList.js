@@ -4,7 +4,7 @@ import Button from 'muicss/lib/react/button'
 import CommentItem from '../components/CommentItem'
 import AddCommentForm from '../components/AddCommentForm'
 import { connect } from 'react-redux'
-import { getComments, deleteComment, addComment } from '../actions'
+import { getComments, deleteComment, addComment, editComment } from '../actions'
 import  uuidv1  from 'uuid/v1'
 import PropTypes from 'prop-types'
 
@@ -43,8 +43,17 @@ class CommentsList extends Component{
             authorName: '',
             showNewCommentForm: false
         })
+    }
 
+    onCommentEditted = (id, editedBody) => {
 
+        const commentEdits = {
+            timestamp: new Date().getTime(),
+            body: editedBody,
+        }
+        console.log("commentEdits", commentEdits)
+        console.log("id", id)
+        this.props.editComment(commentEdits, id)
     }
 
     onTextareaChange(e){
@@ -98,6 +107,7 @@ class CommentsList extends Component{
                                     voteScore={comment.voteScore}
                                     id={comment.id}
                                     body={comment.body}
+                                    onSaveCommentEditted={(id, edits) => this.onCommentEditted(id, edits)}
                                 />
                             )
                         } )
@@ -130,7 +140,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch,
     getComments: (postId) => dispatch( getComments(postId) ),
     deleteComment: (id) => dispatch( deleteComment(id) ),
-    addComment: (comment) => dispatch( addComment(comment) )
+    addComment: (comment) => dispatch( addComment(comment) ),
+    editComment: (commentEdits, id) => dispatch( editComment(commentEdits, id))
 
 })
 

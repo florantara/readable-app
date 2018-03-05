@@ -16,6 +16,7 @@ export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const POSTS_IMPORTED = 'POSTS_IMPORTED'
 export const SORT_POSTS = 'SORT_POSTS'
+export const COMMENT_EDITTED = 'COMMENT_EDITTED'
 
 
 // Posts
@@ -167,6 +168,18 @@ export const addComment = newComment => dispatch => (
     )
 )
 
+// Edit Comment
+
+export const commentEditted = comment => ({
+    type: COMMENT_EDITTED,
+    comment
+})
+
+export const editComment = (commentEdits, id) => dispatch => (
+    APIUtils.editThisComment( commentEdits, id).then( comment =>
+        dispatch( commentEditted( comment))
+    )
+)
 
 // Vote UP:
 //
