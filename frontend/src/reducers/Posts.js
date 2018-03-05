@@ -3,9 +3,10 @@ import {
     UPVOTE_POST_IN_LIST,
     DOWNVOTE_POST_IN_LIST,
     POSTS_IMPORTED,
-    SORT_POSTS,
-    DELETE_POST
+    SORT_POSTS
 } from '../actions'
+
+import { DELETE_POST } from '../actions/types'
 
 const postsInitialState = {
     loadingPosts: true,

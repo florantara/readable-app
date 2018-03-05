@@ -4,7 +4,7 @@ import Button from 'muicss/lib/react/button'
 import CommentItem from '../components/CommentItem'
 import AddCommentForm from '../components/AddCommentForm'
 import { connect } from 'react-redux'
-import { getComments, deleteComment, addComment, editComment } from '../actions'
+import  * as actions from '../actions/Comments'
 import  uuidv1  from 'uuid/v1'
 import PropTypes from 'prop-types'
 
@@ -136,17 +136,8 @@ const mapStateToProps = state => ({
     comments: state.post.comments
 })
 
-const mapDispatchToProps = dispatch => ({
-    dispatch,
-    getComments: (postId) => dispatch( getComments(postId) ),
-    deleteComment: (id) => dispatch( deleteComment(id) ),
-    addComment: (comment) => dispatch( addComment(comment) ),
-    editComment: (commentEdits, id) => dispatch( editComment(commentEdits, id))
-
-})
-
 CommentsList.propTypes = {
     comments: PropTypes.array.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentsList)
+export default connect(mapStateToProps, actions)(CommentsList)

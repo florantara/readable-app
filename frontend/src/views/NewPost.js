@@ -9,7 +9,7 @@ import Textarea from 'muicss/lib/react/textarea'
 import Button from 'muicss/lib/react/button'
 import Dropdown from 'muicss/lib/react/dropdown';
 import DropdownItem from 'muicss/lib/react/dropdown-item';
-import { addNewPost } from '../actions'
+import { addNewPost } from '../actions/IndividualPost'
 import { connect } from 'react-redux'
 import  uuidv1  from 'uuid/v1'
 

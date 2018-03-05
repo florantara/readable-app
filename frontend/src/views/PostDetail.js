@@ -12,7 +12,7 @@ import FaTrash from 'react-icons/lib/fa/trash'
 import Loading from '../components/Loading'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPost, postUpdate, postDelete } from '../actions'
+import { getPost, postUpdate, postDelete } from '../actions/IndividualPost'
 
 class PostDetail extends Component {
 

@@ -7,8 +7,8 @@ import {
     ADD_COMMENT,
     DELETE_COMMENT,
     GET_COMMENTS,
-    DELETE_POST,
-} from '../actions'
+    DELETE_POST
+} from '../actions/types.js'
 
 const individualPost = {
     post: '',
