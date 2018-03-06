@@ -37,8 +37,8 @@ class Categories extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    categories: state.categories.categories
+const mapStateToProps = ({categories}) => ({
+    categories
 })
 
 Categories.propTypes = {
