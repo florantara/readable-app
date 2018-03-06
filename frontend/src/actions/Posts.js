@@ -1,10 +1,9 @@
 import * as APIUtils from '../utils/api-utils'
-
-
-
-export const POSTS_IMPORTED = 'POSTS_IMPORTED'
-export const SORT_POSTS = 'SORT_POSTS'
-export const GET_POSTS = 'GET_POSTS'
+import {
+    GET_POSTS,
+    POSTS_IMPORTED,
+    SORT_POSTS
+} from '../actions/types'
 
 
 // Posts

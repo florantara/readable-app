@@ -5,6 +5,11 @@ export const DELETE_POST = 'DELETE_POST'
 export const ADD_POST = 'ADD_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 
+// Posts
+export const POSTS_IMPORTED = 'POSTS_IMPORTED'
+export const SORT_POSTS = 'SORT_POSTS'
+export const GET_POSTS = 'GET_POSTS'
+
 // Votes
 export const UPVOTE_SINGLE_POST = 'UPVOTE_SINGLE_POST'
 export const DOWNVOTE_SINGLE_POST = 'DOWNVOTE_SINGLE_POST'

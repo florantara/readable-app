@@ -8,7 +8,7 @@ import {
     DELETE_COMMENT,
     GET_COMMENTS,
     DELETE_POST
-} from '../actions/types.js'
+} from '../actions/types'
 
 const postInitialState = {
     post: '',

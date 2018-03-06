@@ -1,10 +1,7 @@
 import {
     GET_POSTS,
     POSTS_IMPORTED,
-    SORT_POSTS
-} from '../actions'
-
-import {
+    SORT_POSTS,
     DELETE_POST,
     UPVOTE_POST_IN_LIST,
     DOWNVOTE_POST_IN_LIST

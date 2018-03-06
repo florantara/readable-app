@@ -7,7 +7,7 @@ import Col from 'muicss/lib/react/col';
 import Row from 'muicss/lib/react/row';
 
 import { connect } from 'react-redux'
-import { getPosts, importSomePosts, sortPosts } from '../actions'
+import * as actions from '../actions/Posts'
 import AppBar from '../components/AppBar'
 import SortBy from '../components/SortBy'
 import CategoriesList from '../components/CategoriesList'
@@ -22,11 +22,11 @@ class Homepage extends Component {
     }
 
     componentWillMount () {
-        this.props.fetchData()
+        this.props.getPosts()
     }
 
     onImportSomePosts = () => {
-        this.props.importPosts()
+        this.props.importSomePosts()
         this.setState({
             showImportButton: false,
             loadingImportedPosts: true
@@ -95,11 +95,4 @@ const mapStateToProps = state => ({
     importDone: state.posts.importDone
 })
 
-const mapDispatchToProps = dispatch => ({
-    dispatch,
-    fetchData: () => dispatch(getPosts()),
-    importPosts: () => dispatch(importSomePosts()),
-    sortPosts: (option) => dispatch(sortPosts(option))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage)
+export default connect(mapStateToProps, actions)(Homepage)

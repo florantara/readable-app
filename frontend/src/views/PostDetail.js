@@ -75,7 +75,7 @@ class PostDetail extends Component {
             title: this.refs.titleInput.innerHTML,
             body: this.refs.bodyInput.innerHTML
         }
-        this.props.updatePost(this.props.match.params.postID, postData)
+        this.props.postUpdate(this.props.match.params.postID, postData)
     }
 
     // Delete Post
@@ -108,6 +108,10 @@ class PostDetail extends Component {
                     this.props.post.body ?
 
                     <Container>
+
+                        <Link to="/">
+                            <p>Back to Homepage</p>
+                        </Link>
 
                         <Panel>
                             <div className="PostDetail-tools">

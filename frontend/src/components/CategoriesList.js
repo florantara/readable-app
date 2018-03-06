@@ -18,7 +18,7 @@ class Categories extends Component {
             <div className="CategoriesList">
                 <span>Categories: </span>
                 <Link to="/">
-                    <Button color={this.props.location.pathname === '/' ? '' : 'accent'}  size="small">All</Button>
+                    <Button color={this.props.location.pathname === '/' ? '' : 'accent'}  size="small" variant="raised">All</Button>
                 </Link>
                 { this.props.categories.map( category => {
                     let isActive
@@ -27,7 +27,7 @@ class Categories extends Component {
                     }
                     return(
                         <Link key={category.path} to={`/category/${category.path}`}>
-                            <Button color={isActive ? '' : 'accent'} size="small">{category.name}</Button>
+                            <Button color={isActive ? '' : 'accent'} size="small" variant="raised">{category.name}</Button>
                         </Link>
                     )
                 } ) }
