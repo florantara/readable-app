@@ -3,10 +3,7 @@ export const ADD_POST = 'ADD_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const POSTS_IMPORTED = 'POSTS_IMPORTED'
 export const SORT_POSTS = 'SORT_POSTS'
-export const COMMENT_EDITTED = 'COMMENT_EDITTED'
 export const GET_POSTS = 'GET_POSTS'
-export const UPVOTE_POST_IN_LIST = 'UPVOTE_POST_IN_LIST'
-export const DOWNVOTE_POST_IN_LIST = 'DOWNVOTE_POST_IN_LIST'
 export const GET_CATEGORIES = 'GET_CATEGORIES'
 
 // Posts
@@ -77,44 +74,3 @@ export const getCategories= () => dispatch =>
       dispatch(grabCategories(categories))
     )
 
-
-
-
-// Vote UP:
-//
-// Post in List
-
-const findAndExecuteVoteUp = post => ({
-    type: UPVOTE_POST_IN_LIST,
-    post
-})
-
-
-// The voteUp function receives a "context" depending of where it was triggered from.
-export const voteUp = (id, option, context) => dispatch => {
-    if ( context === "PostsList" ) {
-        return APIUtils.voteThisPost(id, option).then(post =>
-            dispatch(findAndExecuteVoteUp(post))
-        )
-    }
-}
-
-
-// Vote DOWN
-//// Post in List
-
-export const findAndExecuteVoteDown = post => ({
-    type: DOWNVOTE_POST_IN_LIST,
-    post
-})
-
-
-// The voteDown function receives a "context" depending of where it was triggered from.
-export const voteDown = (id, option, context) => dispatch => {
-    if ( context === "PostsList"){
-        return APIUtils.voteThisPost(id, option).then(post =>
-              dispatch(findAndExecuteVoteDown(post))
-        )
-    }
-
-}

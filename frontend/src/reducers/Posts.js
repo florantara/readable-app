@@ -1,12 +1,15 @@
 import {
     GET_POSTS,
-    UPVOTE_POST_IN_LIST,
-    DOWNVOTE_POST_IN_LIST,
     POSTS_IMPORTED,
     SORT_POSTS
 } from '../actions'
 
-import { DELETE_POST } from '../actions/types'
+import {
+    DELETE_POST,
+    UPVOTE_POST_IN_LIST,
+    DOWNVOTE_POST_IN_LIST
+} from '../actions/types'
+
 
 const postsInitialState = {
     loadingPosts: true,

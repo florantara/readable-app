@@ -10,12 +10,12 @@ import {
     DELETE_POST
 } from '../actions/types.js'
 
-const individualPost = {
+const postInitialState = {
     post: '',
     comments: []
 }
 
-export function individualPostReducer ( state = individualPost, action){
+export function Post( state = postInitialState, action){
     switch ( action.type ){
 
         case GET_POST_BY_ID:

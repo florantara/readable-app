@@ -12,7 +12,7 @@ import FaTrash from 'react-icons/lib/fa/trash'
 import Loading from '../components/Loading'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPost, postUpdate, postDelete } from '../actions/IndividualPost'
+import * as actions from '../actions/Post'
 
 class PostDetail extends Component {
 
@@ -23,7 +23,7 @@ class PostDetail extends Component {
     }
 
     componentWillMount(){
-        this.props.fetchPost(this.props.match.params.postID)
+        this.props.getPost(this.props.match.params.postID)
     }
 
 
@@ -188,11 +188,4 @@ const mapStateToProps = state => ({
     comments: state.post.comments
 })
 
-const mapDispatchToProps = dispatch => ({
-    dispatch,
-    fetchPost: (id) => dispatch( getPost(id) ),
-    updatePost: (id, postData) => dispatch( postUpdate(id, postData) ),
-    deletePost: (id) => dispatch( postDelete(id) )
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)
+export default connect(mapStateToProps, actions)(PostDetail)

@@ -51,8 +51,6 @@ class CommentsList extends Component{
             timestamp: new Date().getTime(),
             body: editedBody,
         }
-        console.log("commentEdits", commentEdits)
-        console.log("id", id)
         this.props.editComment(commentEdits, id)
     }
 

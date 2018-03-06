@@ -43,7 +43,6 @@ class CommentItem extends Component {
             })
             this.onCommentEditted(this.props.id)
         }
-        console.log("handleKeyPress", this.props.id)
     }
 
 

@@ -1,62 +1,23 @@
 import * as APIUtils from '../utils/api-utils'
 import {
-    GET_POST_BY_ID,
     UPVOTE_SINGLE_POST,
     DOWNVOTE_SINGLE_POST,
     UPVOTE_SINGLE_COMMENT,
     DOWNVOTE_SINGLE_COMMENT,
-    DELETE_POST
+    UPVOTE_POST_IN_LIST,
+    DOWNVOTE_POST_IN_LIST
 } from '../actions/types.js'
-
-// Individual Post
-
-export const grabPost = (post, comments) => ({
-    type: GET_POST_BY_ID,
-    post,
-    comments
-})
-
-export const getPost = (id) => dispatch => (
-    APIUtils.fetchPostByID(id)
-        .then( post => {
-            APIUtils.fetchPostComments( post.id )
-            .then( comments => {
-                dispatch( grabPost( post, comments) )
-            } )
-        } )
-
-)
-
-// Delete Individual Post
-
-export const deletePost = (post) => ({
-    type: DELETE_POST,
-    post
-})
-
-export const postDelete = (id) => (dispatch) => (
-    APIUtils.deleteThisPost(id).then( post =>
-        dispatch(deletePost(post))
-    )
-)
-
-// Add Post
-
-export const addNewPost = (newPost) => (dispatch) => (
-    APIUtils.addPost(newPost)
-)
-
-// Edit Post
-
-export const postUpdate = (id, updates) => (dispatch) => (
-    APIUtils.updateThisPost(id, updates)
-)
 
 
 // Vote UP
 
 export const executeVoteUp = post => ({
     type: UPVOTE_SINGLE_POST,
+    post
+})
+
+const findAndExecuteVoteUp = post => ({
+    type: UPVOTE_POST_IN_LIST,
     post
 })
 
@@ -70,6 +31,11 @@ export const voteUp = (id, option, context) => dispatch => {
     if ( context === "PostDetail" ) {
         return APIUtils.voteThisPost(id, option).then(post =>
             dispatch(executeVoteUp(post))
+        )
+    }
+    if ( context === "PostsList" ) {
+        return APIUtils.voteThisPost(id, option).then(post =>
+            dispatch(findAndExecuteVoteUp(post))
         )
     }
     if ( context === "Comment" ) {
@@ -86,6 +52,11 @@ export const executeVoteDown = post => ({
     post
 })
 
+export const findAndExecuteVoteDown = post => ({
+    type: DOWNVOTE_POST_IN_LIST,
+    post
+})
+
 export const findAndExecuteVoteDownComment = comment => ({
     type: DOWNVOTE_SINGLE_COMMENT,
     comment
@@ -96,6 +67,11 @@ export const voteDown = (id, option, context) => dispatch => {
     if ( context === "PostDetail"){
         return APIUtils.voteThisPost(id, option).then(post =>
               dispatch(executeVoteDown(post))
+        )
+    }
+    if ( context === "PostsList"){
+        return APIUtils.voteThisPost(id, option).then(post =>
+              dispatch(findAndExecuteVoteDown(post))
         )
     }
     if ( context === "Comment"){
