@@ -1,4 +1,4 @@
-import { GET_CATEGORIES } from '../actions'
+import { GET_CATEGORIES } from '../actions/types'
 
 const categoriesInitialState = {
     categories: []

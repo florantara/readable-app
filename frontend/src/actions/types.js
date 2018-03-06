@@ -2,6 +2,8 @@
 // Post
 export const GET_POST_BY_ID = 'GET_POST_BY_ID'
 export const DELETE_POST = 'DELETE_POST'
+export const ADD_POST = 'ADD_POST'
+export const UPDATE_POST = 'UPDATE_POST'
 
 // Votes
 export const UPVOTE_SINGLE_POST = 'UPVOTE_SINGLE_POST'
@@ -17,3 +19,6 @@ export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const COMMENT_EDITTED = 'COMMENT_EDITTED'
 
+
+// Categories
+export const GET_CATEGORIES = 'GET_CATEGORIES'

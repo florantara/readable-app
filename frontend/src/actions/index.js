@@ -1,10 +1,11 @@
 import * as APIUtils from '../utils/api-utils'
-export const ADD_POST = 'ADD_POST'
-export const UPDATE_POST = 'UPDATE_POST'
+
+
+
 export const POSTS_IMPORTED = 'POSTS_IMPORTED'
 export const SORT_POSTS = 'SORT_POSTS'
 export const GET_POSTS = 'GET_POSTS'
-export const GET_CATEGORIES = 'GET_CATEGORIES'
+
 
 // Posts
 
@@ -62,15 +63,4 @@ export const sortPosts = option => ({
     option
 })
 
-// Categories
-
-export const grabCategories = categories => ({
-    type: GET_CATEGORIES,
-    categories
-})
-
-export const getCategories= () => dispatch =>
-    APIUtils.fetchCategories().then(categories =>
-      dispatch(grabCategories(categories))
-    )
 

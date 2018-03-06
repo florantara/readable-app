@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Button from 'muicss/lib/react/button'
 import { connect } from 'react-redux'
-import { getCategories } from '../actions'
+import * as actions from '../actions/Categories'
 import PropTypes from 'prop-types'
+import {withRouter} from 'react-router-dom'
 
 class Categories extends Component {
 
     componentWillMount(){
-        this.props.fetchData()
+        this.props.getCategories()
     }
 
     render(){
@@ -16,6 +17,9 @@ class Categories extends Component {
         return(
             <div className="CategoriesList">
                 <span>Categories: </span>
+                <Link to="/">
+                    <Button color={this.props.location.pathname === '/' ? '' : 'accent'}  size="small">All</Button>
+                </Link>
                 { this.props.categories.map( category => {
                     let isActive
                     if ( category.path === this.props.activeCategory ){
@@ -37,14 +41,9 @@ const mapStateToProps = state => ({
     categories: state.categories.categories
 })
 
-const mapDispatchToProps = dispatch => ({
-    dispatch,
-    fetchData: () => dispatch(getCategories())
-})
-
 Categories.propTypes = {
     categories: PropTypes.array,
     activeCategory: PropTypes.string
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Categories)
+export default connect(mapStateToProps, actions)(withRouter(Categories))

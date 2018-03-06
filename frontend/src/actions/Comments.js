@@ -3,7 +3,7 @@ import {
     DELETE_COMMENT,
     ADD_COMMENT,
     GET_COMMENTS
-} from '../actions/types.js'
+} from '../actions/types'
 
 // Comments
 
