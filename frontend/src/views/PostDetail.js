@@ -80,7 +80,7 @@ class PostDetail extends Component {
 
     // Delete Post
     onDeletePost = () =>{
-        this.props.deletePost(this.props.match.params.postID)
+        this.props.postDelete(this.props.match.params.postID)
         this.setState({
             postDeleted: true
         })

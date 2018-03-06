@@ -31,7 +31,6 @@ class NewPost extends Component {
         e.preventDefault()
         const allValues = Object.values(this.state.postData)
         const emptyFields = allValues.filter( field => field === '' );
-        console.log(emptyFields.length)
         if ( emptyFields.length > 0) {
             this.setState({
                 showValidationPopup: true
