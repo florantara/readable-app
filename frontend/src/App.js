@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 
 import { Route, Switch } from 'react-router-dom'
-import Homepage from './views/Homepage'
-import Category from './views/Category'
-import PostDetail from './views/PostDetail'
-import NewPost from './views/NewPost'
-import PageNotFound from './views/PageNotFound'
+import Homepage from './pages/Homepage'
+import Category from './pages/Category'
+import PostDetail from './pages/PostDetail'
+import NewPost from './pages/NewPost'
+import PageNotFound from './pages/PageNotFound'
 
 
 class App extends Component {
@@ -31,4 +31,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default App
