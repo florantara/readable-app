@@ -11,7 +11,6 @@ import Dropdown from 'muicss/lib/react/dropdown';
 import DropdownItem from 'muicss/lib/react/dropdown-item';
 import * as actions from '../actions/Post'
 import { connect } from 'react-redux'
-import  uuidv1  from 'uuid/v1'
 
 class ManagePost extends Component {
 
@@ -60,6 +59,12 @@ class ManagePost extends Component {
         }
     }
 
+
+    createGUID = () => {
+        const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
+    }
+
     // Submit Post
     onPostSubmit = () =>{
 
@@ -67,10 +72,10 @@ class ManagePost extends Component {
         this.setState({
             postData: {
                 ...this.state.postData,
-                id: uuidv1()
+                id: this.createGUID()
             }
         })
-
+        console.log(this.state.postData)
         // Check That fields are not empty, show valitation popup if they are:
         const allValues = Object.values(this.state.postData)
         const emptyFields = allValues.filter( field => field === '' );
