@@ -9,6 +9,14 @@ import PropTypes from 'prop-types'
 
 class CommentsList extends Component{
 
+    constructor(props) {
+        super(props);
+        this.onAuthorChange = this.onAuthorChange.bind(this);
+        this.onCommentSubmit = this.onCommentSubmit.bind(this);
+        this.handleShowCommentForm = this.handleShowCommentForm.bind(this);
+        this.onTextareaChange = this.onTextareaChange.bind(this);
+    }
+
     state={
         newCommentText: '',
         authorName: ''
@@ -88,12 +96,12 @@ class CommentsList extends Component{
                 {this.state.showNewCommentForm &&
 
                     <AddCommentForm
-                        onAuthorChange={this.onAuthorChange.bind(this)}
+                        onAuthorChange={this.onAuthorChange}
                         authorName={this.state.authorName}
-                        onTextareaChange={this.onTextareaChange.bind(this)}
+                        onTextareaChange={this.onTextareaChange}
                         textComment={this.state.newCommentText}
-                        onCommentSubmit={this.onCommentSubmit.bind(this)}
-                        onCancel={this.handleShowCommentForm.bind(this)}
+                        onCommentSubmit={this.onCommentSubmit}
+                        onCancel={this.handleShowCommentForm}
                     />
 
                 }
@@ -125,7 +133,7 @@ class CommentsList extends Component{
                     variant="raised"
                     color="accent"
                     size="small"
-                    onClick={this.handleShowCommentForm.bind(this)}
+                    onClick={this.handleShowCommentForm}
                 >
                     Add Comment
                 </Button>
