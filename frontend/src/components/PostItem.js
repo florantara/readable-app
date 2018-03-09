@@ -14,6 +14,8 @@ const PostItem = ({post, postDelete}) => {
         postDelete(id)
     }
 
+
+
     const date = new Date(timestamp)
 
     return(
@@ -28,7 +30,11 @@ const PostItem = ({post, postDelete}) => {
                 id={id}
                 context="PostsList"
             />
-            <FaTrash onClick={() => onDeletePost(id)}/>
+            <Link className="PostsList-item-edit" to={{
+                pathname: `/post/manage`,
+                postData: post
+            }}>Edit</Link>
+            <FaTrash className="PostsList-item-delete" onClick={() => onDeletePost(id)}/>
 
         </div>
     )

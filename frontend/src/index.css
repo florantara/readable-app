@@ -3,6 +3,9 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.mui-container{
+    min-width: 740px;
+}
 .AppBar a{
     color: white;
 }
@@ -197,12 +200,14 @@ body {
 /* Posts List*/
 
 .PostsList-item{
-    padding-top: 10px;
+    padding: 10px 20px 10px 10px;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
 }
-
+.PostsList-item .list-info{
+    align-self: flex-start;
+}
 .PostsList-item h4{
     padding-right: 20px;
     margin-top: 0;
@@ -210,6 +215,9 @@ body {
 }
 .PostsList-item:hover h4 a{
     color: #2196F3;
+}
+.PostsList-item:hover{
+    background-color: #FFFEF0;
 }
 .PostsList-item h4 a{
     color: black;
@@ -223,7 +231,16 @@ body {
     color: #BFBFBF;
     line-height: 1em;
 }
-
+.PostsList-item-delete{
+    cursor: pointer;
+}
+.PostsList-item-edit{
+    margin-left: auto;
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 11px;
+    text-decoration: none;
+}
 /* New Post */
 
 .NewPost-ValidationMsg{

@@ -7,7 +7,7 @@ import CommentsList from '../components/CommentsList';
 import Panel from 'muicss/lib/react/panel'
 import placeCursorAtEnd from '../utils/tools'
 import Button from 'muicss/lib/react/button'
-import  Parser  from 'html-react-parser'
+import Parser  from 'html-react-parser'
 import FaTrash from 'react-icons/lib/fa/trash'
 import Loading from '../components/Loading'
 import { Link } from 'react-router-dom'

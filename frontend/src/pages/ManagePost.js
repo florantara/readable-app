@@ -9,26 +9,70 @@ import Textarea from 'muicss/lib/react/textarea'
 import Button from 'muicss/lib/react/button'
 import Dropdown from 'muicss/lib/react/dropdown';
 import DropdownItem from 'muicss/lib/react/dropdown-item';
-import { addNewPost } from '../actions/Post'
+import * as actions from '../actions/Post'
 import { connect } from 'react-redux'
+import Parser from 'html-react-parser'
 import  uuidv1  from 'uuid/v1'
 
-class NewPost extends Component {
+class ManagePost extends Component {
 
     state={
         postData: {
+            id: '',
             titleInput: '',
             bodyInput: '',
             authorInput: '',
             category: '',
         },
-        newPostId: null,
-        postCreated: false,
-        showValidationPopup: false
+        redirect: false,
+        showValidationPopup: false,
+        editingPost: false
     }
 
-    onPostSubmit = (e) =>{
+    // TODO: Make ManagePost work for New Posts and for Edit Posts
+
+    componentWillMount(){
+
+        // If there is postData coming in, it means we need to Edit this post, so populate the data into state.
+        if ( this.props.location && this.props.location.postData ) {
+            this.setState({
+                postData: {
+                    id: this.props.location.postData.id,
+                    titleInput: this.props.location.postData.title,
+                    bodyInput: this.props.location.postData.body,
+                    authorInput: this.props.location.postData.author,
+                    category: this.props.location.postData.category,
+                },
+                editingPost: true
+            })
+        }
+
+
+    }
+
+    // Handle Submission for either the New Post, or the Post Edited
+    handleFormSubmission = (e) => {
         e.preventDefault()
+
+        if ( this.state.editingPost ) {
+            this.onUpdatePost()
+        } else {
+            this.onPostSubmit()
+        }
+    }
+
+    // Submit Post
+    onPostSubmit = () =>{
+
+        // Create ID for Post
+        this.setState({
+            postData: {
+                ...this.state.postData,
+                id: uuidv1()
+            }
+        })
+
+        // Check That fields are not empty, show valitation popup if they are:
         const allValues = Object.values(this.state.postData)
         const emptyFields = allValues.filter( field => field === '' );
         if ( emptyFields.length > 0) {
@@ -38,8 +82,6 @@ class NewPost extends Component {
         } else {
             this.onCreatePost()
         }
-
-
     }
 
     onOkValidationMsg = () => {
@@ -48,10 +90,24 @@ class NewPost extends Component {
         })
     }
 
+
+    // Update Post
+    onUpdatePost(){
+        const updatedData = {
+            title: this.state.postData.titleInput,
+            body: this.state.postData.bodyInput
+        }
+        this.props.postUpdate(this.state.postData.id, updatedData)
+        this.setState({
+            redirect: true
+        })
+    }
+
+    // Create and Add New Post
     onCreatePost = () => {
 
         const newPost = {
-            id: uuidv1(),
+            id: this.state.postData.id,
             timestamp: new Date().getTime(),
             title: this.state.postData.titleInput,
             body: this.state.postData.bodyInput,
@@ -59,11 +115,14 @@ class NewPost extends Component {
             category: this.state.postData.category
         }
 
-        this.props.addPost(newPost)
+        this.props.addNewPost(newPost)
 
         this.setState({
-            newPostId: newPost.id,
-            postCreated: true
+            postData: {
+                ...this.state.postData,
+                id: newPost.id
+            },
+            redirect: true
         })
 
     }
@@ -106,8 +165,8 @@ class NewPost extends Component {
 
     render(){
 
-        if (this.state.postCreated === true) {
-            return <Redirect to={`/${this.state.postData.category}/${this.state.newPostId}`} />
+        if (this.state.redirect === true) {
+            return <Redirect to={`/${this.state.postData.category}/${this.state.postData.id}`} />
         }
 
         return(
@@ -115,7 +174,7 @@ class NewPost extends Component {
                 <AppBar />
                 <Container>
                     <Panel>
-                        <Form onSubmit={this.onPostSubmit}>
+                        <Form onSubmit={this.handleFormSubmission}>
 
                             <legend>New Post</legend>
 
@@ -129,21 +188,31 @@ class NewPost extends Component {
 
                             <div className="mui--text-caption">Author</div>
                             <Input
+                                readOnly={this.state.editingPost ? 'true' : null}
                                 name="author"
                                 placeholder="What's your name?"
                                 onChange={this.onAuthorChange}
                                 value={this.state.postData.authorInput}
                             />
 
-                            <Dropdown
-                                color="accent"
-                                size="small"
-                                label={this.state.postData.category ? this.state.postData.category : "Pick a category..."}
-                            >
-                                <DropdownItem onClick={() => this.handleCategory("redux")} value="redux">Redux</DropdownItem>
-                                <DropdownItem onClick={() => this.handleCategory("react")} value="react">React</DropdownItem>
-                                <DropdownItem onClick={() => this.handleCategory("udacity")} value="udacity">Udacity</DropdownItem>
-                            </Dropdown>
+                            { this.state.editingPost ?
+
+                                <div>
+                                    <div className="mui--text-caption">Category</div>
+                                    <Input readOnly value={this.state.postData.category} />
+                                </div>
+                                :
+
+                                <Dropdown
+                                    color="accent"
+                                    size="small"
+                                    label={this.state.postData.category ? this.state.postData.category : "Pick a category..."}
+                                >
+                                    <DropdownItem onClick={() => this.handleCategory("redux")} value="redux">Redux</DropdownItem>
+                                    <DropdownItem onClick={() => this.handleCategory("react")} value="react">React</DropdownItem>
+                                    <DropdownItem onClick={() => this.handleCategory("udacity")} value="udacity">Udacity</DropdownItem>
+                                </Dropdown>
+                            }
 
                             <Textarea
                                 name="body"
@@ -180,9 +249,4 @@ class NewPost extends Component {
 
 }
 
-const mapDispatchToProps = dispatch => ({
-    dispatch,
-    addPost: (newPost) => dispatch(addNewPost(newPost))
-})
-
-export default connect(null, mapDispatchToProps)(NewPost)
+export default connect(null, actions)(ManagePost)
