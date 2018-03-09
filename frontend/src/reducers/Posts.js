@@ -73,16 +73,10 @@ export function postsReducer (state = postsInitialState, action) {
             }
 
         case DELETE_POST:
+
              return {
                  ...state,
-                 posts: state.posts.map( (post, index) => post.id === action.post.id ?
-                    {
-                        ...post,
-                        deleted: true
-                    }
-                    :
-                    post
-                )
+                 posts: state.posts.filter( post => post.id !== action.post.id )
              }
 
 
