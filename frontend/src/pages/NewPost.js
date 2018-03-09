@@ -62,15 +62,10 @@ class NewPost extends Component {
         this.props.addPost(newPost)
 
         this.setState({
-            postData: {
-                titleInput: '',
-                bodyInput: '',
-                authorInput: '',
-                category: ''
-            },
             newPostId: newPost.id,
             postCreated: true
         })
+
     }
 
     onTitleChange = (e) => {
@@ -112,7 +107,7 @@ class NewPost extends Component {
     render(){
 
         if (this.state.postCreated === true) {
-            return <Redirect to={`/post/${this.state.newPostId}`} />
+            return <Redirect to={`/${this.state.postData.category}/${this.state.newPostId}`} />
         }
 
         return(
