@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 
 let s1 = {verticalAlign: 'middle'};
 let s2 = {textAlign: 'right', width: '200px'};
-let s3 = {width: "300px", textAlign: "right"}
 
 const AppBar = ({showCreateButton}) => {
 
@@ -26,7 +25,7 @@ const AppBar = ({showCreateButton}) => {
                                 </td>
                                 { showCreateButton &&
                                     <td className="mui--appbar-height" style={s2}>
-                                        <Link to="/new-post">
+                                        <Link to="/post/manage">
                                             <Button variant="raised">Create Post</Button>
                                         </Link>
                                     </td>

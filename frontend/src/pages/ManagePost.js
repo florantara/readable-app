@@ -11,7 +11,6 @@ import Dropdown from 'muicss/lib/react/dropdown';
 import DropdownItem from 'muicss/lib/react/dropdown-item';
 import * as actions from '../actions/Post'
 import { connect } from 'react-redux'
-import Parser from 'html-react-parser'
 import  uuidv1  from 'uuid/v1'
 
 class ManagePost extends Component {
@@ -176,7 +175,7 @@ class ManagePost extends Component {
                     <Panel>
                         <Form onSubmit={this.handleFormSubmission}>
 
-                            <legend>New Post</legend>
+                            <legend>{this.state.editingPost ? "Edit Post" : "New Post" }</legend>
 
                             <div className="mui--text-caption">Title</div>
                             <Input
