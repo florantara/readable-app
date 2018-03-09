@@ -14,10 +14,10 @@ const postsInitialState = {
 
 export function postsReducer (state = postsInitialState, action) {
     switch (action.type) {
-        case GET_POSTS:
+        case GET_POSTS: {
             return { ...state, loadingPosts: false, posts: action.posts }
-
-        case SORT_POSTS:
+        }
+        case SORT_POSTS: {
             let sortedPosts
             if ( action.option === 'date') {
                 sortedPosts = state.posts.sort( (a, b) => {
@@ -34,8 +34,9 @@ export function postsReducer (state = postsInitialState, action) {
                     ...sortedPosts
                 ]
             }
+        }
 
-        case UPVOTE_POST_IN_LIST:
+        case UPVOTE_POST_IN_LIST: {
             return {
                 ...state,
                 posts: state.posts.map( (post, index) => post.id === action.post.id ?
@@ -47,16 +48,16 @@ export function postsReducer (state = postsInitialState, action) {
                     post
                 )
             }
-
-        case DELETE_POST:
+        }
+        case DELETE_POST: {
 
              return {
                  ...state,
                  posts: state.posts.filter( post => post.id !== action.post.id )
              }
+         }
 
-
-        case DOWNVOTE_POST_IN_LIST:
+        case DOWNVOTE_POST_IN_LIST: {
             return {
                 ...state,
                 posts: state.posts.map( (post, index) => post.id === action.post.id ?
@@ -68,6 +69,7 @@ export function postsReducer (state = postsInitialState, action) {
                     post
                 )
             }
+        }
 
         default:
             return state

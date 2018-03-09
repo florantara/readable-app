@@ -8,7 +8,7 @@ import Button from 'muicss/lib/react/button'
 class CommentItem extends Component {
 
     state = {
-        editingComment: 'false'
+        editingComment: 'false' // It's a string since it applies directly into the contentEditable attribute
     }
 
     // Comment Edit
