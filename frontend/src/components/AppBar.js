@@ -10,11 +10,8 @@ let s1 = {verticalAlign: 'middle'};
 let s2 = {textAlign: 'right', width: '200px'};
 let s3 = {width: "300px", textAlign: "right"}
 
-const AppBar = ({showCreateButton, showImportButton, onImportSomePosts, importingPosts}) => {
+const AppBar = ({showCreateButton}) => {
 
-    const triggerImportSomePosts = () => {
-        onImportSomePosts()
-    }
     return(
         <div className="AppBar">
             <Appbar>
@@ -27,17 +24,6 @@ const AppBar = ({showCreateButton, showImportButton, onImportSomePosts, importin
                                         <img src={logo} alt="Readable Logo" width="100"/>
                                     </Link>
                                 </td>
-                                {importingPosts &&
-                                    <td style={s3}>
-                                        <p style={{color: "white"}}>Importing posts...</p>
-                                    </td>
-                                }
-                                {showImportButton &&
-                                    <td style={s3}>
-                                        <Button title="Import External Posts to make this more fun!" variant="raised" onClick={() => triggerImportSomePosts()}>
-                                        Import Some Posts</Button>
-                                    </td>
-                                }
                                 { showCreateButton &&
                                     <td className="mui--appbar-height" style={s2}>
                                         <Link to="/new-post">
@@ -57,10 +43,7 @@ const AppBar = ({showCreateButton, showImportButton, onImportSomePosts, importin
 }
 
 AppBar.propTypes = {
-    showCreateButton: PropTypes.bool,
-    showImportButton: PropTypes.bool,
-    onImportSomePosts: PropTypes.func,
-    importingPosts: PropTypes.bool
+    showCreateButton: PropTypes.bool
 }
 
 export default AppBar

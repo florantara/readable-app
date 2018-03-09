@@ -15,34 +15,12 @@ import PostsList from '../components/PostsList'
 
 class Homepage extends Component {
 
-    state={
-        showImportButton: this.props.importDone === false ? true : false,
-        loadingImportedPosts: false
-
-    }
-
     componentWillMount () {
         this.props.getPosts()
     }
 
-    onImportSomePosts = () => {
-        this.props.importSomePosts()
-        this.setState({
-            showImportButton: false,
-            loadingImportedPosts: true
-        })
-    }
-
     onSortBy = (option) => {
         this.props.sortPosts(option)
-    }
-
-    componentWillReceiveProps( nextProps ){
-        if ( nextProps.importDone === true ){
-            this.setState({
-                loadingImportedPosts: false
-            })
-        }
     }
 
     render() {
@@ -53,12 +31,7 @@ class Homepage extends Component {
 
             <div>
 
-                <AppBar
-                    showCreateButton
-                    showImportButton={this.state.showImportButton === true ? true : null}
-                    onImportSomePosts={this.onImportSomePosts}
-                    importingPosts={this.state.loadingImportedPosts}
-                />
+                <AppBar showCreateButton/>
 
                 <Container>
 
@@ -91,8 +64,7 @@ class Homepage extends Component {
 
 const mapStateToProps = state => ({
     posts: state.posts.posts,
-    loadingPosts: state.posts.loadingPosts,
-    importDone: state.posts.importDone
+    loadingPosts: state.posts.loadingPosts
 })
 
 export default connect(mapStateToProps, actions)(Homepage)

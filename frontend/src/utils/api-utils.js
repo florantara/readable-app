@@ -12,11 +12,6 @@ export const fetchPosts = () =>
 fetch(`${apiURL}/posts`, { headers })
 .then(data => data.json())
 
-//  Import Some Posts
-export const importSomePosts = () =>
-fetch('https://www.webdesignerdepot.com/wp-json/wp/v2/posts?_embed', { headers })
-.then(data => data.json())
-
 
 //  Get All Categories
 export const fetchCategories = () =>

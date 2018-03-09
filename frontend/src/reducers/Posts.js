@@ -1,6 +1,5 @@
 import {
     GET_POSTS,
-    POSTS_IMPORTED,
     SORT_POSTS,
     DELETE_POST,
     UPVOTE_POST_IN_LIST,
@@ -10,7 +9,6 @@ import {
 
 const postsInitialState = {
     loadingPosts: true,
-    importDone: false,
     posts: []
 }
 
@@ -18,28 +16,6 @@ export function postsReducer (state = postsInitialState, action) {
     switch (action.type) {
         case GET_POSTS:
             return { ...state, loadingPosts: false, posts: action.posts }
-
-        case POSTS_IMPORTED:
-            let newPosts = action.posts.map( (post,index) => ({
-                id: String(post.id),
-                timestamp: post.date,
-                title: post.title.rendered,
-                body: post.content.rendered,
-                category: "udacity",
-                voteScore: Math.floor(Math.random()*200) + 1,
-                author: post._embedded.author[0].name,
-                deleted: false,
-                commentCount: 0
-            }))
-            return {
-                ...state,
-                importDone: true,
-                posts: [
-                    ...state.posts,
-                    ...newPosts
-                ]
-            }
-
 
         case SORT_POSTS:
             let sortedPosts

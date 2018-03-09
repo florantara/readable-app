@@ -6,7 +6,6 @@ export const ADD_POST = 'ADD_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 
 // Posts
-export const POSTS_IMPORTED = 'POSTS_IMPORTED'
 export const SORT_POSTS = 'SORT_POSTS'
 export const GET_POSTS = 'GET_POSTS'
 
